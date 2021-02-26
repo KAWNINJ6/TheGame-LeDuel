@@ -150,10 +150,10 @@ public class Table {
                     else if ((strSuiv.contains("'")) && str.contains("'")) {
                         return false;
                     }
-                    else if (str.contains("v") && (cout < coutSuiv) && !(str.contains("'"))){
+                    else if (str.contains("v") && (cout < coutSuiv) && !(str.contains("'") || strSuiv.contains("^"))){
                         return false;
                     }
-                    else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'"))){
+                    else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'") || strSuiv.contains("v"))){
                         return false;
                     }
                 }
