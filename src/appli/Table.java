@@ -247,6 +247,22 @@ public class Table {
     /**
      *
      */
+    public void afficherVictoireJ1()
+    {
+        System.out.println("partie finie, " + this.j1.getNom() + " a gagné");
+    }
+
+    /**
+     *
+     */
+    public void afficherVictoireJ2()
+    {
+        System.out.println("partie finie, " + this.j2.getNom() + " a gagné");
+    }
+
+    /**
+     *
+     */
     public void afficherInfoj1()
     {
         System.out.println(this.j1.afficherInfoJoueur());
@@ -270,52 +286,27 @@ public class Table {
      */
     public boolean verifDefaiteJ1()
     {
-        int pileAsc = j1.getPile('^');
-        int pileDesc = j1.getPile('v');
-        int cpt = 0;
+        int cptPossible = 0;
+        int carteEnMain = 0;
 
-        for (int i = 0; i < this.j1.nbDeCarteEnMain(); ++i) {
-            int carte = this.j1.getCarte(i);
+        for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; i++) {
+            carteEnMain = this.j1.getCarte(i);
 
-            if (cpt < 2) {
-                if (pileAsc < carte) {
-                    pileAsc = carte;
-                    ++cpt;
-                } else {
-                    if (pileDesc > carte) {
-                        pileDesc = carte;
-                        ++cpt;
-                    }
-                }
+            if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
+                ++cptPossible;
             }
-            else{
-                return true;
+            else if (this.j1.verifPoseCartePileDesc(carteEnMain)) {
+                ++cptPossible;
+            }
+            else if (this.j1.verifPoseCartePileAscAdv(this.j2, carteEnMain)) {
+                ++cptPossible;
+            }
+            else if (this.j1.verifPoseCartePileDescAdv(this.j2, carteEnMain)) {
+                ++cptPossible;
             }
         }
 
-        pileAsc = j2.getPile('^');
-        pileDesc = j2.getPile('v');
-
-        for (int i = 0; i < this.j1.nbDeCarteEnMain(); ++i) {
-            int carte = this.j1.getCarte(i);
-
-            if (cpt < 2) {
-                if (pileAsc < carte) {
-                    pileAsc = carte;
-                    ++cpt;
-                } else {
-                    if (pileDesc > carte) {
-                        pileDesc = carte;
-                        ++cpt;
-                    }
-                }
-            }
-            else{
-                return true;
-            }
-        }
-
-        return cpt >= 2;
+        return cptPossible >= 2;
     }
 
     /**
@@ -324,52 +315,27 @@ public class Table {
      */
     public boolean verifDefaiteJ2()
     {
-        int pileAsc = j2.getPile('^');
-        int pileDesc = j2.getPile('v');
-        int cpt = 0;
+        int cptPossible = 0;
+        int carteEnMain = 0;
 
-        for (int i = 0; i < this.j2.nbDeCarteEnMain(); ++i) {
-            int carte = this.j2.getCarte(i);
+        for (int i = 0; i < this.j2.nbDeCarteEnMain()-1; i++) {
+            carteEnMain = this.j2.getCarte(i);
 
-            if (cpt < 2) {
-                if (pileAsc < carte) {
-                    pileAsc = carte;
-                    ++cpt;
-                } else {
-                    if (pileDesc > carte) {
-                        pileDesc = carte;
-                        ++cpt;
-                    }
-                }
+            if (this.j2.verifPoseCartePileAsc(carteEnMain)) {
+                ++cptPossible;
             }
-            else{
-                return true;
+            else if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
+                ++cptPossible;
+            }
+            else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain)) {
+                ++cptPossible;
+            }
+            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain)) {
+                ++cptPossible;
             }
         }
 
-        pileAsc = j1.getPile('^');
-        pileDesc = j1.getPile('v');
-
-        for (int i = 0; i < this.j2.nbDeCarteEnMain(); ++i) {
-            int carte = this.j2.getCarte(i);
-
-            if (cpt < 2) {
-                if (pileAsc < carte) {
-                    pileAsc = carte;
-                    ++cpt;
-                } else {
-                    if (pileDesc > carte) {
-                        pileDesc = carte;
-                        ++cpt;
-                    }
-                }
-            }
-            else{
-                return true;
-            }
-        }
-
-        return cpt >= 2;
+        return cptPossible >= 2;
     }
 
     /**
