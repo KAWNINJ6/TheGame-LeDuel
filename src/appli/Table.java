@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Table {
-
+    /** premier joueur */
     private final Joueur j1 = new Joueur();
+    /** deuxieme joueur */
     private final Joueur j2 = new Joueur();
-
-    private ArrayList<String> coutJoué = new ArrayList<>();
-    private ArrayList<Integer> carteJoué = new ArrayList<>();
+    /** cout joué par les joueurs */
+    private final ArrayList<String> coutJoué = new ArrayList<>();
+    /** carte joué par les joueurs */
+    private final ArrayList<Integer> carteJoué = new ArrayList<>();
 
     /**
      *
@@ -114,6 +116,9 @@ public class Table {
                         }
 
                     }
+                    else {
+                        supEntrées();
+                    }
                 }
                 else {
                     supEntrées();
@@ -156,10 +161,31 @@ public class Table {
                     else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'") || strSuiv.contains("v"))){
                         return false;
                     }
+                    else if (!testInterne(strSuiv, coutSuiv, joueur, joueurAdv)){
+                        return false;
+                    }
                 }
             }
             return verifSemantique(joueur,nbCarte, joueurAdv);
         }
+    }
+
+    private boolean testInterne(String s,Integer c, Joueur joueur, Joueur joueurAdv) {
+        if (s.contains("v'")){
+            if (joueur.verifPoseCartePileDescAdv(joueurAdv, c)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        else if (s.contains("^'")){
+            if (joueur.verifPoseCartePileAscAdv(joueurAdv, c)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -265,9 +291,9 @@ public class Table {
      */
     public void afficherInfoj1()
     {
-        System.out.println(this.j1.afficherInfoJoueur());
-        System.out.println(this.j2.afficherInfoJoueur());
-        System.out.println(this.j1.afficherInfoMainJoueur());
+        System.out.println(this.j1.InfoJoueurToSring());
+        System.out.println(this.j2.InfoJoueurToSring());
+        System.out.println(this.j1.InfoMainJoueurToString());
     }
 
     /**
@@ -275,9 +301,9 @@ public class Table {
      */
     public void afficherInfoj2()
     {
-        System.out.println(this.j1.afficherInfoJoueur());
-        System.out.println(this.j2.afficherInfoJoueur());
-        System.out.println(this.j2.afficherInfoMainJoueur());
+        System.out.println(this.j1.InfoJoueurToSring());
+        System.out.println(this.j2.InfoJoueurToSring());
+        System.out.println(this.j2.InfoMainJoueurToString());
     }
 
     /**

@@ -10,8 +10,9 @@ class CartesTest {
      * Test que permet de creer un packet des cartes et regardes combient de cartes sont dans le packet
      */
     @Test
-    public void CreationCartes(){
+    public void testCreationCartes(){
         Cartes c1 = new Cartes();
+
         assertEquals(60,c1.getNbCarte());
     }
 
@@ -19,9 +20,11 @@ class CartesTest {
      * Test que permet de retirer une carte de le packet et de la metre dans la main et regardes combient de cartes sont dans le packet
      */
     @Test
-    public void piocher(){
+    public void testPiocher(){
         Cartes c1 = new Cartes();
-        c1.piocherCarte();
+
+        c1.prendreCarte();
+
         assertEquals(59,c1.getNbCarte());
     }
 
@@ -29,30 +32,31 @@ class CartesTest {
      * Test que permet la premier carte de le packet (1)
      */
     @Test
-    public void piocherPrem(){
+    public void testPiocherPrem(){
         Cartes c1 = new Cartes();
-        assertEquals(1, c1.piocherPremCarte());
+
+        assertEquals(1, c1.prendrePremCarte());
     }
 
     /**
      * Test que permet la dernier carte de le packet (60)
      */
     @Test
-    public void piocherDern(){
+    public void testPiocherDern(){
         Cartes c1 = new Cartes();
-        assertEquals(60,c1.piocherDernCarte());
+
+        assertEquals(60,c1.prendreDernCarte());
     }
 
     /**
      * Test que permet de savoir combien de carte sont dans le packets en retirent quelques unes
      */
     @Test
-    public void NbCarte(){ // 2 sec je test un truc
-        /*
-        assertEquals(60,c1.getNbCarte());
-        c1.piocherCarte();
-        assertEquals(59,c1.getNbCarte());
-         */
+    public void testNbCarte(){
+        Cartes c1 = new Cartes();
 
+        assertEquals(60,c1.getNbCarte());
+        c1.prendreCarte();
+        assertEquals(59,c1.getNbCarte());
     }
 }

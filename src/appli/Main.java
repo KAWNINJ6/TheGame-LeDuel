@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import static java.util.Collections.sort;
 
 public class Main {
-
+    /** set de cartes */
     private final ArrayList<Integer> main = new ArrayList<>();
+    /** nombre de cartes maximum utilisable */
     private final int nbCarteMax = 6;
 
     /**
@@ -15,19 +16,8 @@ public class Main {
     public Main(Cartes c)
     {
         for (;this.main.size() <= nbCarteMax-1;){
-                this.main.add(c.piocherCarte());
+                this.main.add(c.prendreCarte());
             }
-    }
-
-    /**
-     *
-     * @param carte
-     */
-    public void setMain(Integer carte)
-    {
-        assert (!(main.size() < nbCarteMax));
-
-        this.main.add(carte);
     }
 
     /**
@@ -35,9 +25,9 @@ public class Main {
      * @param idx
      * @return
      */
-    public Integer getMain(int idx)
+    public Integer prendreCarte(int idx)
     {
-        Integer pch = this.main.get(idx);
+        Integer pch = getCarte(idx);
         this.main.remove(idx);
         return pch;
     }
@@ -55,9 +45,20 @@ public class Main {
     /**
      *
      * @param carte
+     */
+    public void setCarte(Integer carte)
+    {
+        assert (this.main.size() < this.nbCarteMax);
+
+        this.main.add(carte);
+    }
+
+    /**
+     *
+     * @param carte
      * @return
      */
-    public int trvCarte(Integer carte)
+    public int trvIdxCarte(Integer carte)
     {
         return this.main.indexOf(carte);
     }
@@ -89,7 +90,7 @@ public class Main {
      *
      * @return
      */
-    public StringBuilder afficherMain()
+    public StringBuilder mainToString()
     {
         trierMain();
         StringBuilder s = new StringBuilder("{ ");

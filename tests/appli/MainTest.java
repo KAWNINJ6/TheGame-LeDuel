@@ -1,18 +1,19 @@
 package appli;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
     /**
-     *
+     * Test que permet de voir combien de cartes sont dans la main.
      */
     @Test
-    public void getNbCartesdansMain(){ //Test que permet de voir combien de cartes sont dans la main.
+    public void testGetNbCartesdansMain()
+    {
         Cartes c1 = new Cartes();
         Main m1 = new Main(c1);
+
         assertEquals(6, m1.getNbCarte());
     }
 
@@ -20,24 +21,30 @@ class MainTest {
      * Test que permet de trouver une carte dans la main
      */
     @Test
-    public void trvCarte(){
+    public void testTrvCarte()
+    {
         Cartes c1 = new Cartes();
         Main m1 = new Main(c1);
-        Integer i1 = m1.getMain(1);
-        m1.setMain(i1);
-        assertEquals(5,m1.trvCarte(i1));
+        Integer i1 = m1.prendreCarte(1);
+
+        m1.setCarte(i1);
+
+        assertEquals(5,m1.trvIdxCarte(i1));
     }
 
     /**
      * Test que permet de voir si une carte existe dans la main
      */
     @Test
-    public void carteExiste(){
+    public void testCarteExiste()
+    {
         Cartes c1 = new Cartes();
         Main m1 = new Main(c1);
-        m1.getMain(1);
-        m1.setMain(5);
-        assertEquals(true,m1.carteExiste(5));
+
+        m1.prendreCarte(1);
+        m1.setCarte(5);
+
+        assertTrue(m1.carteExiste(5));
     }
 
     /**
@@ -45,12 +52,16 @@ class MainTest {
      * combien de cartes sont dans la main
      */
     @Test
-    public void getAndSetMain(){
+    public void testGetAndSetMain()
+    {
         Cartes c1 = new Cartes();
         Main m1 = new Main(c1);
-        m1.getMain(1);
+        Integer i1 = 12;
+
+        m1.prendreCarte(0);
         assertEquals(5, m1.getNbCarte());
-        m1.setMain(6);
+
+        m1.setCarte(i1);
         assertEquals(6, m1.getNbCarte());
     }
 }

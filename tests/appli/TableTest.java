@@ -10,7 +10,6 @@ class TableTest {
     public void testDefaite()
     {
         Table t1 = new Table();
-
         assertTrue(t1.verifDefaiteJ1());
     }
 
