@@ -161,7 +161,7 @@ public class Table {
                     else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'") || strSuiv.contains("v"))){
                         return false;
                     }
-                    else if (!testInterne(strSuiv, coutSuiv, joueur, joueurAdv)){
+                    else if (!testCoutSuiv(strSuiv, coutSuiv, joueur, joueurAdv)){
                         return false;
                     }
                 }
@@ -170,7 +170,7 @@ public class Table {
         }
     }
 
-    private boolean testInterne(String s,Integer c, Joueur joueur, Joueur joueurAdv) {
+    private boolean testCoutSuiv(String s,Integer c, Joueur joueur, Joueur joueurAdv) {
         if (s.contains("v'")){
             if (joueur.verifPoseCartePileDescAdv(joueurAdv, c)){
                 return true;
@@ -180,6 +180,20 @@ public class Table {
         }
         else if (s.contains("^'")){
             if (joueur.verifPoseCartePileAscAdv(joueurAdv, c)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        else if (s.contains("^")){
+            if (joueur.verifPoseCartePileAsc(c)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        else if (s.contains("v")){
+            if (joueur.verifPoseCartePileDesc(c)){
                 return true;
             }else {
                 return false;
