@@ -161,7 +161,7 @@ public class Table {
                     else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'") || strSuiv.contains("v"))){
                         return false;
                     }
-                    else if (!testCoutSuiv(strSuiv, coutSuiv, joueur, joueurAdv)){
+                    else if (!verifCoutSuiv(strSuiv, coutSuiv, joueur, joueurAdv)){
                         return false;
                     }
                 }
@@ -170,34 +170,26 @@ public class Table {
         }
     }
 
-    private boolean testCoutSuiv(String s,Integer c, Joueur joueur, Joueur joueurAdv) {
+    /**
+     *
+     * @param s
+     * @param c
+     * @param joueur
+     * @param joueurAdv
+     * @return
+     */
+    private boolean verifCoutSuiv(String s, Integer c, Joueur joueur, Joueur joueurAdv) {
         if (s.contains("v'")){
-            if (joueur.verifPoseCartePileDescAdv(joueurAdv, c)){
-                return true;
-            }else {
-                return false;
-            }
+            return joueur.verifPoseCartePileDescAdv(joueurAdv, c);
         }
         else if (s.contains("^'")){
-            if (joueur.verifPoseCartePileAscAdv(joueurAdv, c)){
-                return true;
-            }else {
-                return false;
-            }
+            return joueur.verifPoseCartePileAscAdv(joueurAdv, c);
         }
         else if (s.contains("^")){
-            if (joueur.verifPoseCartePileAsc(c)){
-                return true;
-            }else {
-                return false;
-            }
+            return joueur.verifPoseCartePileAsc(c);
         }
         else if (s.contains("v")){
-            if (joueur.verifPoseCartePileDesc(c)){
-                return true;
-            }else {
-                return false;
-            }
+            return joueur.verifPoseCartePileDesc(c);
         }
         return true;
     }
@@ -327,7 +319,7 @@ public class Table {
     public boolean verifDefaiteJ1()
     {
         int cptPossible = 0;
-        int carteEnMain = 0;
+        int carteEnMain;
 
         for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; i++) {
             carteEnMain = this.j1.getCarte(i);
