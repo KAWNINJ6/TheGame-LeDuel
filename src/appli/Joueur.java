@@ -57,7 +57,14 @@ public class Joueur {
      */
     public boolean verifPoseCartePileAsc(Integer carte)
     {
-        return carte > this.base.getCartePileAsc() || carte-10 == this.base.getCartePileAsc();
+        if (carte > this.base.getCartePileAsc()) {
+            return true;
+        }
+        else if (carte-10 == this.base.getCartePileAsc()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**
@@ -77,7 +84,14 @@ public class Joueur {
      */
     public boolean verifPoseCartePileDesc(Integer carte)
     {
-        return carte < this.base.getCartePileDesc() || carte+10 == this.base.getCartePileDesc();
+        if (carte < this.base.getCartePileDesc()) {
+            return true;
+        }
+        else if (carte+10 == this.base.getCartePileDesc()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**

@@ -140,58 +140,151 @@ public class Table {
         if (this.coutJoué.size() < 2){
             return false;
         }
-        else {
-            for (int cpt = 0; cpt <= this.coutJoué.size() - 1; ++cpt){
-                String str = this.coutJoué.get(cpt);
-                Integer cout = this.carteJoué.get(cpt);
-
-                for (int cptRev = cpt + 1; cptRev < this.coutJoué.size(); ++cptRev) {
-                    String strSuiv = this.coutJoué.get(cptRev);
-                    Integer coutSuiv = carteJoué.get(cptRev);
-
-                    if (strSuiv.equals(str)) {
-                        return false;
-                    }
-                    else if ((strSuiv.contains("'")) && str.contains("'")) {
-                        return false;
-                    }
-                    else if (str.contains("v") && (cout < coutSuiv) && !(str.contains("'") || strSuiv.contains("^"))){
-                        return false;
-                    }
-                    else if (str.contains("^") && (cout > coutSuiv) && !(str.contains("'") || strSuiv.contains("v"))){
-                        return false;
-                    }
-                    else if (!verifCoutSuiv(strSuiv, coutSuiv, joueur, joueurAdv)){
-                        return false;
-                    }
-                }
-            }
+        else if (verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)){
             return verifSemantique(joueur,nbCarte, joueurAdv);
         }
+        return false;
     }
 
     /**
      *
-     * @param s
-     * @param c
+     * @return
+     */
+    private boolean verifDoublon()
+    {
+        String cout = this.coutJoué.get(0);
+        Integer carte = this.carteJoué.get(0);
+
+        for (int i = 1; i <= coutJoué.size() - 1 ; ++i) {
+            String coutSuiv = this.coutJoué.get(i);
+            Integer carteSuiv = this.carteJoué.get(i);
+
+            if ((cout.contains("'") && coutSuiv.contains("'")) || carte.equals(carteSuiv)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @param joueur
+     * @return
+     */
+    private boolean verifAsc(Joueur joueur)
+    {
+        for (int i = 0; i <= this.coutJoué.size() - 1; ++i) {
+            String cout = this.coutJoué.get(i);
+            Integer carte = this.carteJoué.get(i);
+
+            if (cout.contains("^") && !cout.contains("'")) {
+                String coutAsc = this.coutJoué.get(i);
+                Integer carteAsc = this.carteJoué.get(i);
+
+                if (!joueur.verifPoseCartePileAsc(carteAsc)) {
+                    return false;
+                } else {
+                    for (int j = i+1; j < this.coutJoué.size(); ++j) {
+                        Integer newCarteAsc = verifCoutSpec('^', carteAsc, joueur);
+                        String coutAscSuiv = this.coutJoué.get(j);
+                        Integer carteAscSuiv = this.carteJoué.get(j);
+
+                        if (cout.contains("^") && !cout.contains("'")) {
+                            if (verifCoutSpec('^', newCarteAsc, joueur) > verifCoutSpec('^', carteAscSuiv, joueur)) {
+                                return false;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param joueur
+     * @return
+     */
+    private boolean verifDesc(Joueur joueur)
+    {
+        for (int i = 0; i <= this.coutJoué.size() - 1; ++i) {
+            String cout = this.coutJoué.get(i);
+            Integer carte = this.carteJoué.get(i);
+
+            if (cout.contains("v") && !cout.contains("'")) {
+                String coutAsc = this.coutJoué.get(i);
+                Integer carteAsc = this.carteJoué.get(i);
+
+                if (!joueur.verifPoseCartePileAsc(carteAsc)) {
+                    return false;
+                } else {
+                    for (int j = i+1; j < this.coutJoué.size(); ++j) {
+                        Integer newCarteAsc = verifCoutSpec('v', carteAsc, joueur);
+                        String coutAscSuiv = this.coutJoué.get(j);
+                        Integer carteAscSuiv = this.carteJoué.get(j);
+
+                        if (cout.contains("v") && !cout.contains("'")) {
+                            if (verifCoutSpec('v', newCarteAsc, joueur) < verifCoutSpec('v', carteAscSuiv, joueur)) {
+                                return false;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     *
      * @param joueur
      * @param joueurAdv
      * @return
      */
-    private boolean verifCoutSuiv(String s, Integer c, Joueur joueur, Joueur joueurAdv) {
-        if (s.contains("v'")){
-            return joueur.verifPoseCartePileDescAdv(joueurAdv, c);
-        }
-        else if (s.contains("^'")){
-            return joueur.verifPoseCartePileAscAdv(joueurAdv, c);
-        }
-        else if (s.contains("^")){
-            return joueur.verifPoseCartePileAsc(c);
-        }
-        else if (s.contains("v")){
-            return joueur.verifPoseCartePileDesc(c);
+    private boolean verifPoseAdv(Joueur joueur, Joueur joueurAdv) {
+
+        for (int i = 0; i <= this.coutJoué.size() - 1 ; ++i) {
+            String cout = this.coutJoué.get(i);
+            Integer carte = this.carteJoué.get(i);
+
+            if (cout.contains("v'") && !joueur.verifPoseCartePileDescAdv(joueurAdv, carte)) {
+                return false;
+            }
+            else if (cout.contains("^'") && !joueur.verifPoseCartePileAscAdv(joueurAdv, carte)) {
+                return false;
+            }
         }
         return true;
+    }
+
+    /**
+     *
+     * @param base
+     * @param carte
+     * @param joueur
+     * @return
+     */
+    private Integer verifCoutSpec(char base, Integer carte, Joueur joueur)
+    {
+        Integer newCarte = carte;
+
+        if (base == 'v'){
+            newCarte = carte-10;
+            if (newCarte.equals(joueur.getPile('v'))){
+                return newCarte;
+            }
+        }
+        else if (base == '^'){
+            newCarte = carte+10;
+            if (newCarte.equals(joueur.getPile('^'))){
+                return newCarte;
+            }
+        }
+        return carte;
     }
 
     /**
@@ -212,28 +305,20 @@ public class Table {
 
             if (str.contains("v'"))
             {
-                if (!joueur.verifPoseCartePileDescAdv(joueurAdv, cout)) {
-                    return false;
-                }else {
-                    joueur.poseCartePileDescAdv(joueurAdv, cout);
-                    poserAdv = true;
-                }
+                joueur.poseCartePileDescAdv(joueurAdv, cout);
+                poserAdv = true;
             }
             else if (str.contains("^'"))
             {
-                if (!joueur.verifPoseCartePileAscAdv(joueurAdv, cout)) {
-                    return false;
-                } else {
-                    joueur.poseCartePileAscAdv(joueurAdv, cout);
-                    poserAdv = true;
-                }
+                joueur.poseCartePileAscAdv(joueurAdv, cout);
+                poserAdv = true;
             }
-            else if (str.contains("^") && !str.contains("'") && (joueur.verifPoseCartePileAsc(cout)))
+            else if (str.contains("^") && !str.contains("'"))
             {
                 joueur.poseCartePileAsc(cout);
                 poserCarte = true;
             }
-            else if (str.contains("v") && !str.contains("'") && (joueur.verifPoseCartePileDesc(cout)))
+            else if (str.contains("v") && !str.contains("'"))
             {
                 joueur.poseCartePileDesc(cout);
                 poserCarte = true;
@@ -321,7 +406,7 @@ public class Table {
         int cptPossible = 0;
         int carteEnMain;
 
-        for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; i++) {
+        for (int i = 0; i <= this.j1.nbDeCarteEnMain()-1; i++) {
             carteEnMain = this.j1.getCarte(i);
 
             if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
