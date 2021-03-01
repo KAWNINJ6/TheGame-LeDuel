@@ -193,7 +193,9 @@ public class Table {
 
                         if (cout.contains("^") && !cout.contains("'")) {
                             if (verifCoutSpec('^', newCarteAsc, joueur) > verifCoutSpec('^', carteAscSuiv, joueur)) {
-                                return false;
+                                if (!verifCoutSpec2('^', newCarteAsc, carteAscSuiv, joueur)) {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -229,7 +231,9 @@ public class Table {
 
                         if (cout.contains("v") && !cout.contains("'")) {
                             if (verifCoutSpec('v', newCarteAsc, joueur) < verifCoutSpec('v', carteAscSuiv, joueur)) {
-                                return false;
+                                if (!verifCoutSpec2('v', newCarteAsc, carteAscSuiv, joueur)) {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -273,19 +277,42 @@ public class Table {
     {
         Integer newCarte = carte;
 
-        if (base == 'v'){
+        if (base == 'v') {
             newCarte = carte-10;
             if (newCarte.equals(joueur.getPile('v'))){
                 return newCarte;
             }
         }
-        else if (base == '^'){
+        else if (base == '^') {
             newCarte = carte+10;
             if (newCarte.equals(joueur.getPile('^'))){
                 return newCarte;
             }
         }
         return carte;
+    }
+
+    /**
+     *
+     * @param base
+     * @param carte
+     * @param carteSuiv
+     * @param joueur
+     * @return
+     */
+    private boolean verifCoutSpec2(char base, Integer carte,Integer carteSuiv, Joueur joueur)
+    {
+        Integer newCarte = carte;
+
+        if (base == 'v' && joueur.getPile('v') == 60) {
+            newCarte = carte+10;
+            return newCarte.equals(carteSuiv);
+        }
+        else if (base == '^' && joueur.getPile('^') == 1) {
+            newCarte = carte-10;
+            return newCarte.equals(carteSuiv);
+        }
+        return false;
     }
 
     /**
@@ -371,9 +398,9 @@ public class Table {
     public boolean verifDefaiteJ1()
     {
         int cptPossible = 0;
-        int carteEnMain;
+        Integer carteEnMain;
 
-        for (int i = 0; i <= this.j1.nbDeCarteEnMain()-1; i++) {
+        for (int i = 0; i <= this.j1.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j1.getCarte(i);
 
             if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
@@ -400,9 +427,9 @@ public class Table {
     public boolean verifDefaiteJ2()
     {
         int cptPossible = 0;
-        int carteEnMain = 0;
+        Integer carteEnMain = 0;
 
-        for (int i = 0; i < this.j2.nbDeCarteEnMain()-1; i++) {
+        for (int i = 0; i <= this.j2.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j2.getCarte(i);
 
             if (this.j2.verifPoseCartePileAsc(carteEnMain)) {

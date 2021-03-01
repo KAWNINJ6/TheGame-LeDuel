@@ -203,7 +203,8 @@ public class Joueur {
      *
      * @return
      */
-    public NomJoueur getNom() {
+    public NomJoueur getNom()
+    {
         return this.nom;
     }
 
