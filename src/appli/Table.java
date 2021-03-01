@@ -141,7 +141,8 @@ public class Table {
             return false;
         }
         else if (verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)){
-            return verifSemantique(joueur,nbCarte, joueurAdv);
+            verifSemantique(joueur,nbCarte, joueurAdv);
+            return true;
         }
         return false;
     }
@@ -294,10 +295,9 @@ public class Table {
      * @param joueurAdv
      * @return
      */
-    private boolean verifSemantique(Joueur joueur,int nbCarte, Joueur joueurAdv)
+    private void verifSemantique(Joueur joueur, int nbCarte, Joueur joueurAdv)
     {
         boolean poserAdv = false;
-        boolean poserCarte = false;
 
         for (int cpt = 0; cpt <= this.coutJoué.size() - 1; ++cpt) {
             String str = this.coutJoué.get(cpt);
@@ -316,24 +316,27 @@ public class Table {
             else if (str.contains("^") && !str.contains("'"))
             {
                 joueur.poseCartePileAsc(cout);
-                poserCarte = true;
             }
             else if (str.contains("v") && !str.contains("'"))
             {
                 joueur.poseCartePileDesc(cout);
-                poserCarte = true;
             }
         }
-        if (!verifCartePosées(joueur, nbCarte)) {
-            return false;
-        }
-        else if (poserAdv) {
-                joueur.remplirMainComplet();
-            }
-            else {
+        distributionDeCarte(joueur, poserAdv);
+    }
+
+    /**
+     *
+     * @param joueur
+     * @param poserAdv
+     */
+    private void distributionDeCarte(Joueur joueur, boolean poserAdv)
+    {
+        if (poserAdv) {
+            joueur.remplirMainComplet();
+        } else {
             joueur.remplirMain();
         }
-        return true;
     }
 
     /**
@@ -359,42 +362,6 @@ public class Table {
         s.append(this.carteJoué.size()).append(" cartes posées, ");
 
         return s.append(joueur.nbDeCarteEnMain() - (nbCarte - this.carteJoué.size())).append(" cartes piochées");
-    }
-
-    /**
-     *
-     */
-    public void afficherVictoireJ1()
-    {
-        System.out.println("partie finie, " + this.j1.getNom() + " a gagné");
-    }
-
-    /**
-     *
-     */
-    public void afficherVictoireJ2()
-    {
-        System.out.println("partie finie, " + this.j2.getNom() + " a gagné");
-    }
-
-    /**
-     *
-     */
-    public void afficherInfoj1()
-    {
-        System.out.println(this.j1.InfoJoueurToSring());
-        System.out.println(this.j2.InfoJoueurToSring());
-        System.out.println(this.j1.InfoMainJoueurToString());
-    }
-
-    /**
-     *
-     */
-    public void afficherInfoj2()
-    {
-        System.out.println(this.j1.InfoJoueurToSring());
-        System.out.println(this.j2.InfoJoueurToSring());
-        System.out.println(this.j2.InfoMainJoueurToString());
     }
 
     /**
@@ -471,5 +438,41 @@ public class Table {
     public boolean verifVictoireJ2()
     {
         return (this.j2.nbDeCarteEnMain() == 0 && this.j2.nbDeCarteDansPioche() == 0);
+    }
+
+    /**
+     *
+     */
+    public void afficherVictoireJ1()
+    {
+        System.out.println("partie finie, " + this.j1.getNom() + " a gagné");
+    }
+
+    /**
+     *
+     */
+    public void afficherVictoireJ2()
+    {
+        System.out.println("partie finie, " + this.j2.getNom() + " a gagné");
+    }
+
+    /**
+     *
+     */
+    public void afficherInfoj1()
+    {
+        System.out.println(this.j1.InfoJoueurToSring());
+        System.out.println(this.j2.InfoJoueurToSring());
+        System.out.println(this.j1.InfoMainJoueurToString());
+    }
+
+    /**
+     *
+     */
+    public void afficherInfoj2()
+    {
+        System.out.println(this.j1.InfoJoueurToSring());
+        System.out.println(this.j2.InfoJoueurToSring());
+        System.out.println(this.j2.InfoMainJoueurToString());
     }
 }
