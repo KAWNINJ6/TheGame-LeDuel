@@ -23,7 +23,7 @@ public class Joueur {
     private static int nbJoueurs = 0;
 
     /**
-     *
+     * constructeur du joueur
      */
     public Joueur()
     {
@@ -41,8 +41,9 @@ public class Joueur {
     }
 
     /**
+     * pose une carte de la main du joueur dans la pile ascendante du joueur.
      *
-     * @param carte
+     * @param carte         la carte à déposer sur la pile
      */
     public void poseCartePileAsc(Integer carte)
     {
@@ -51,9 +52,10 @@ public class Joueur {
     }
 
     /**
+     * vérifie si la carte est posable sur la pile ascendante.
      *
-     * @param carte
-     * @return
+     * @param carte         la carte à poser
+     * @return              si la carte est posable sur la pile ou non
      */
     public boolean verifPoseCartePileAsc(Integer carte)
     {
@@ -68,8 +70,9 @@ public class Joueur {
     }
 
     /**
+     * pose une carte de la main du joueur dans la pile descendante du joueur.
      *
-     * @param carte
+     * @param carte         la carte à déposer sur la pile
      */
     public void poseCartePileDesc(Integer carte)
     {
@@ -78,9 +81,10 @@ public class Joueur {
     }
 
     /**
+     * vérifie si la carte est posable sur la pile descendante.
      *
-     * @param carte
-     * @return
+     * @param carte         la carte à poser
+     * @return              si la carte est posable sur la pile ou non
      */
     public boolean verifPoseCartePileDesc(Integer carte)
     {
@@ -95,9 +99,10 @@ public class Joueur {
     }
 
     /**
+     * Pose une carte de la main du joueur dans la pile ascendante du joueur adverse.
      *
-     * @param joueurAdv
-     * @param carte
+     * @param joueurAdv         le joueur adverse
+     * @param carte             la carte à poser
      */
     public void poseCartePileAscAdv(Joueur joueurAdv, Integer carte)
     {
@@ -106,10 +111,11 @@ public class Joueur {
     }
 
     /**
+     * vérifie si la carte est posable sur la pile ascendante adverse.
      *
-     * @param joueurAdv
-     * @param carte
-     * @return
+     * @param joueurAdv         le joueur adverse
+     * @param carte             la carte à poser
+     * @return                  si la carte est posable sur la pile ou non
      */
     public boolean verifPoseCartePileAscAdv(Joueur joueurAdv, Integer carte)
     {
@@ -117,9 +123,10 @@ public class Joueur {
     }
 
     /**
+     * Pose une carte de la main du joueur dans la pile descendante du joueur adverse.
      *
-     * @param joueurAdv
-     * @param carte
+     * @param joueurAdv         le joueur adverse
+     * @param carte             la carte à poser
      */
     public void poseCartePileDescAdv(Joueur joueurAdv, Integer carte)
     {
@@ -128,10 +135,11 @@ public class Joueur {
     }
 
     /**
+     * vérifie si la carte est posable sur la pile descendante adverse.
      *
-     * @param joueurAdv
-     * @param carte
-     * @return
+     * @param joueurAdv         le joueur adverse
+     * @param carte             la carte à poser
+     * @return                  si la carte est posable sur la pile ou non
      */
     public boolean verifPoseCartePileDescAdv(Joueur joueurAdv, Integer carte)
     {
@@ -139,9 +147,10 @@ public class Joueur {
     }
 
     /**
+     * Vérifie si la carte est dans la main du joueur.
      *
-     * @param carte
-     * @return
+     * @param carte         la carte à trouver
+     * @return              si la carte est dans la main ou non
      */
     public boolean aCetteCarteEnMain(Integer carte)
     {
@@ -149,8 +158,9 @@ public class Joueur {
     }
 
     /**
+     * Retourne le nombre de carte dans la main du joueur.
      *
-     * @return
+     * @return              le nombre de cartes dans la main du joueur
      */
     public int nbDeCarteEnMain()
     {
@@ -158,8 +168,9 @@ public class Joueur {
     }
 
     /**
+     * Retourne le nombre de carte dans la pioche du joueur.
      *
-     * @return
+     * @return          le nombre de cartes dans la pioche du joueur
      */
     public int nbDeCarteDansPioche()
     {
@@ -167,8 +178,9 @@ public class Joueur {
     }
 
     /**
+     * Crée une chaine de caractères contenant la main du joueur.
      *
-     * @return
+     * @return          la chaine de caractères
      */
     public StringBuilder InfoMainJoueurToString()
     {
@@ -180,8 +192,10 @@ public class Joueur {
     }
 
     /**
+     * Crée une chaine de caractères contenant le nom du joueur, les bases du joueur
+     * ainsi que le nombre de cartes dans sa main et pioche.
      *
-     * @return
+     * @return          la chaine de caractères
      */
     public StringBuilder InfoJoueurToSring()
     {
@@ -200,14 +214,21 @@ public class Joueur {
     }
 
     /**
+     * Renvoie le nom du joueur
      *
-     * @return
+     * @return          nom du joueur
      */
     public NomJoueur getNom()
     {
         return this.nom;
     }
 
+    /**
+     * getter de la valeur d'une base du joueur.
+     *
+     * @param Base          la base voulue
+     * @return              la valeur de la base
+     * */
     public Integer getPile(char Base)
     {
         assert (Base == 'v' || Base == '^');
@@ -220,13 +241,19 @@ public class Joueur {
         return 0;
     }
 
+    /**
+     * getter de la carte dans la main du joueur.
+     *
+     * @param idx          l'indice de la carte voulue
+     * @return             la carte
+     * */
     public Integer getCarte(int idx)
     {
         return this.main.getCarte(idx);
     }
 
     /**
-     *
+     * Ajoute des cartes dans la main du joueur jusqu'à qu'elle soit pleine.
      */
     public void remplirMainComplet()
     {
@@ -238,7 +265,7 @@ public class Joueur {
     }
 
     /**
-     *
+     * Ajoute 2 cartes dans la main du joueur.
      */
     public void remplirMain()
     {
