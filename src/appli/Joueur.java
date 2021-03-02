@@ -178,7 +178,7 @@ public class Joueur {
     }
 
     /**
-     * Crée une chaine de caractères contenant la main du joueur.
+     * Crée une chaine de caractères contenant le nom et la main du joueur.
      *
      * @return          la chaine de caractères
      */
