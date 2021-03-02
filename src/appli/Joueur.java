@@ -226,7 +226,7 @@ public class Joueur {
     /**
      * getter de la valeur d'une base du joueur.
      *
-     * @param Base          la base voulue
+     * @param Base          la base voulue ^(ascendante) ou v(descendante)
      * @return              la valeur de la base
      * */
     public Integer getPile(char Base)
