@@ -7,18 +7,18 @@ public class Application {
 
         while (jeux.verifDefaiteJ1() || jeux.verifVictoireJ1()) {
 
-            jeux.afficherInfoj1();
+            System.out.println(jeux.infoJ1ToString());
             jeux.lectureEntrerJ1();
             if(!jeux.verifDefaiteJ1() || jeux.verifVictoireJ1()) {
-                jeux.afficherInfoj2();
+                System.out.println(jeux.infoJ2ToString());
                 jeux.afficherVictoireJ2();
                 break;
             }
 
-            jeux.afficherInfoj2();
+            System.out.println(jeux.infoJ2ToString());
             jeux.lectureEntrerJ2();
             if(!jeux.verifDefaiteJ2() || jeux.verifVictoireJ2()) {
-                jeux.afficherInfoj1();
+                System.out.println(jeux.infoJ1ToString());
                 jeux.afficherVictoireJ1();
                 break;
             }

@@ -230,8 +230,10 @@ public class Joueur {
      */
     public void remplirMainComplet()
     {
-        while (this.main.getNbCarte() < 6) {
-            this.main.setCarte(this.pioche.prendreCarte());
+        if (this.pioche.getNbCarte() > 0) {
+            while (this.main.getNbCarte() <= this.pioche.getNbCarte()-1) {
+                this.main.setCarte(this.pioche.prendreCarte());
+            }
         }
     }
 
@@ -240,7 +242,9 @@ public class Joueur {
      */
     public void remplirMain()
     {
-        this.main.setCarte(this.pioche.prendreCarte());
-        this.main.setCarte(this.pioche.prendreCarte());
+       if (this.pioche.getNbCarte() > 0) {
+           this.main.setCarte(this.pioche.prendreCarte());
+           this.main.setCarte(this.pioche.prendreCarte());
+       }
     }
 }
