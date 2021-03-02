@@ -80,11 +80,7 @@ public class Main {
      */
     public boolean carteExiste(Integer carte)
     {
-        if (this.main.contains(carte))
-        {
-            return true;
-        }
-        return false;
+        return this.main.contains(carte);
     }
 
     /**
