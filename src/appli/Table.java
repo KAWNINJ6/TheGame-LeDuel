@@ -9,9 +9,9 @@ public class Table {
     /** deuxieme joueur */
     private final Joueur j2 = new Joueur();
     /** cout joué par les joueurs */
-    private final ArrayList<String> coutJoué = new ArrayList<>();
+    private final ArrayList<String> coutJouées = new ArrayList<>();
     /** carte joué par les joueurs */
-    private final ArrayList<Integer> carteJoué = new ArrayList<>();
+    private final ArrayList<Integer> carteJouées = new ArrayList<>();
 
     /**
      *
@@ -25,19 +25,19 @@ public class Table {
         System.out.print("> ");
         supEntrées();
         s = sc.nextLine();
-        décompose(s, j1, j2);
-        if (!verifSyntaxique(j1, nbCarte, j2)){
+        décompose(s, j1);
+        if (!verifSyntaxique(j1, j2)){
             supEntrées();
-            while (!verifSyntaxique(j1, nbCarte, j2)) {
+            while (!verifSyntaxique(j1, j2)) {
                 supEntrées();
-                if (!verifSyntaxique(j1, nbCarte, j2)) {
+                if (!verifSyntaxique(j1, j2)) {
                     System.out.print("#> ");
                     s = sc.nextLine();
-                    décompose(s, this.j1, this.j2);
+                    décompose(s, this.j1);
                 }
             }
         }
-        System.out.println(afficherCarteJoué(j1, nbCarte));
+        System.out.println(cartesJouéToString(j1, nbCarte));
     }
 
     /**
@@ -52,19 +52,19 @@ public class Table {
         System.out.print("> ");
         supEntrées();
         s = sc.nextLine();
-        décompose(s, j2, j1);
-        if (!verifSyntaxique(j2, nbCarte, j1)){
+        décompose(s, j2);
+        if (!verifSyntaxique(j2, j1)){
             supEntrées();
-            while (!verifSyntaxique(j2, nbCarte, j1)) {
+            while (!verifSyntaxique(j2, j1)) {
                 supEntrées();
-                if (!verifSyntaxique(j2, nbCarte, j1)) {
+                if (!verifSyntaxique(j2, j1)) {
                     System.out.print("#> ");
                     s = sc.nextLine();
-                    décompose(s, this.j2, this.j1);
+                    décompose(s, j2);
                 }
             }
         }
-        System.out.println(afficherCarteJoué(j2, nbCarte));
+        System.out.println(cartesJouéToString(j2, nbCarte));
     }
 
     /**
@@ -72,17 +72,16 @@ public class Table {
      */
     private void supEntrées()
     {
-        this.carteJoué.clear();
-        this.coutJoué.clear();
+        this.carteJouées.clear();
+        this.coutJouées.clear();
     }
 
     /**
      *
      * @param s
      * @param joueur
-     * @param joueurAdv
      */
-    private void décompose(String s, Joueur joueur, Joueur joueurAdv)
+    private void décompose(String s, Joueur joueur)
     {
         Scanner scs = new Scanner(s);
 
@@ -96,23 +95,23 @@ public class Table {
                     if (coup.charAt(2) == 'v') {
 
                         if (coup.length() > 3 && coup.charAt(3) == '\'') {
-                            coutJoué.add(coup.substring(0, 4));
-                            carteJoué.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coutJouées.add(coup.substring(0, 4));
+                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
                         else {
-                            coutJoué.add(coup.substring(0, 3));
-                            carteJoué.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coutJouées.add(coup.substring(0, 3));
+                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
 
                     } else if (coup.charAt(2) == '^') {
 
                         if (coup.length() > 3 && coup.charAt(3) == '\'') {
-                            coutJoué.add(coup.substring(0, 4));
-                            carteJoué.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coutJouées.add(coup.substring(0, 4));
+                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
                         else {
-                            coutJoué.add(coup.substring(0, 3));
-                            carteJoué.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coutJouées.add(coup.substring(0, 3));
+                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
 
                     }
@@ -131,17 +130,16 @@ public class Table {
     /**
      *
      * @param joueur
-     * @param nbCarte
      * @param joueurAdv
      * @return
      */
-    private boolean verifSyntaxique(Joueur joueur, int nbCarte, Joueur joueurAdv)
+    private boolean verifSyntaxique(Joueur joueur, Joueur joueurAdv)
     {
-        if (this.coutJoué.size() < 2){
+        if (this.coutJouées.size() < 2){
             return false;
         }
         else if (verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)){
-            verifSemantique(joueur,nbCarte, joueurAdv);
+            verifSemantique(joueur, joueurAdv);
             return true;
         }
         return false;
@@ -153,12 +151,12 @@ public class Table {
      */
     private boolean verifDoublon()
     {
-        String cout = this.coutJoué.get(0);
-        Integer carte = this.carteJoué.get(0);
+        String cout = this.coutJouées.get(0);
+        Integer carte = this.carteJouées.get(0);
 
-        for (int i = 1; i <= coutJoué.size() - 1 ; ++i) {
-            String coutSuiv = this.coutJoué.get(i);
-            Integer carteSuiv = this.carteJoué.get(i);
+        for (int i = 1; i <= coutJouées.size() - 1 ; ++i) {
+            String coutSuiv = this.coutJouées.get(i);
+            Integer carteSuiv = this.carteJouées.get(i);
 
             if ((cout.contains("'") && coutSuiv.contains("'")) || carte.equals(carteSuiv)){
                 return false;
@@ -175,23 +173,21 @@ public class Table {
      */
     private boolean verifAsc(Joueur joueur)
     {
-        for (int i = 0; i <= this.coutJoué.size() - 1; ++i) {
-            String cout = this.coutJoué.get(i);
-            Integer carte = this.carteJoué.get(i);
+        for (int i = 0; i <= this.coutJouées.size() - 1; ++i) {
+            String cout = this.coutJouées.get(i);
 
             if (cout.contains("^") && !cout.contains("'")) {
-                String coutAsc = this.coutJoué.get(i);
-                Integer carteAsc = this.carteJoué.get(i);
+                Integer carteAsc = this.carteJouées.get(i);
 
                 if (!joueur.verifPoseCartePileAsc(carteAsc)) {
                     return false;
                 } else {
-                    for (int j = i+1; j < this.coutJoué.size(); ++j) {
+                    for (int j = i+1; j <= this.coutJouées.size() - 1; ++j) {
                         Integer newCarteAsc = verifCoutSpec('^', carteAsc, joueur);
-                        String coutAscSuiv = this.coutJoué.get(j);
-                        Integer carteAscSuiv = this.carteJoué.get(j);
+                        String coutAscSuiv = this.coutJouées.get(j);
+                        Integer carteAscSuiv = this.carteJouées.get(j);
 
-                        if (cout.contains("^") && !cout.contains("'")) {
+                        if (coutAscSuiv.contains("^") && !coutAscSuiv.contains("'")) {
                             if (verifCoutSpec('^', newCarteAsc, joueur) > verifCoutSpec('^', carteAscSuiv, joueur)) {
                                 if (!verifCoutSpec2('^', newCarteAsc, carteAscSuiv, joueur)) {
                                     return false;
@@ -213,25 +209,23 @@ public class Table {
      */
     private boolean verifDesc(Joueur joueur)
     {
-        for (int i = 0; i <= this.coutJoué.size() - 1; ++i) {
-            String cout = this.coutJoué.get(i);
-            Integer carte = this.carteJoué.get(i);
+        for (int i = 0; i <= this.coutJouées.size() - 1; ++i) {
+            String cout = this.coutJouées.get(i);
 
             if (cout.contains("v") && !cout.contains("'")) {
-                String coutAsc = this.coutJoué.get(i);
-                Integer carteAsc = this.carteJoué.get(i);
+                Integer carteDesc = this.carteJouées.get(i);
 
-                if (!joueur.verifPoseCartePileAsc(carteAsc)) {
+                if (!joueur.verifPoseCartePileAsc(carteDesc)) {
                     return false;
                 } else {
-                    for (int j = i+1; j < this.coutJoué.size(); ++j) {
-                        Integer newCarteAsc = verifCoutSpec('v', carteAsc, joueur);
-                        String coutAscSuiv = this.coutJoué.get(j);
-                        Integer carteAscSuiv = this.carteJoué.get(j);
+                    for (int j = i+1; j <= this.coutJouées.size() - 1; ++j) {
+                        Integer newCarteDesc = verifCoutSpec('v', carteDesc, joueur);
+                        String coutDescSuiv = this.coutJouées.get(j);
+                        Integer carteDescSuiv = this.carteJouées.get(j);
 
-                        if (cout.contains("v") && !cout.contains("'")) {
-                            if (verifCoutSpec('v', newCarteAsc, joueur) < verifCoutSpec('v', carteAscSuiv, joueur)) {
-                                if (!verifCoutSpec2('v', newCarteAsc, carteAscSuiv, joueur)) {
+                        if (coutDescSuiv.contains("v") && !coutDescSuiv.contains("'")) {
+                            if (verifCoutSpec('v', newCarteDesc, joueur) < verifCoutSpec('v', carteDescSuiv, joueur)) {
+                                if (!verifCoutSpec2('v', newCarteDesc, carteDescSuiv, joueur)) {
                                     return false;
                                 }
                             }
@@ -252,9 +246,9 @@ public class Table {
      */
     private boolean verifPoseAdv(Joueur joueur, Joueur joueurAdv) {
 
-        for (int i = 0; i <= this.coutJoué.size() - 1 ; ++i) {
-            String cout = this.coutJoué.get(i);
-            Integer carte = this.carteJoué.get(i);
+        for (int i = 0; i <= this.coutJouées.size() - 1 ; ++i) {
+            String cout = this.coutJouées.get(i);
+            Integer carte = this.carteJouées.get(i);
 
             if (cout.contains("v'") && !joueur.verifPoseCartePileDescAdv(joueurAdv, carte)) {
                 return false;
@@ -318,17 +312,15 @@ public class Table {
     /**
      *
      * @param joueur
-     * @param nbCarte
      * @param joueurAdv
-     * @return
      */
-    private void verifSemantique(Joueur joueur, int nbCarte, Joueur joueurAdv)
+    private void verifSemantique(Joueur joueur, Joueur joueurAdv)
     {
         boolean poserAdv = false;
 
-        for (int cpt = 0; cpt <= this.coutJoué.size() - 1; ++cpt) {
-            String str = this.coutJoué.get(cpt);
-            Integer cout = this.carteJoué.get(cpt);
+        for (int cpt = 0; cpt <= this.coutJouées.size() - 1; ++cpt) {
+            String str = this.coutJouées.get(cpt);
+            Integer cout = this.carteJouées.get(cpt);
 
             if (str.contains("v'"))
             {
@@ -372,23 +364,12 @@ public class Table {
      * @param nbCarte
      * @return
      */
-    private boolean verifCartePosées(Joueur joueur, Integer nbCarte)
-    {
-        return joueur.nbDeCarteEnMain() <= nbCarte - 2 || joueur.nbDeCarteEnMain() == 0;
-    }
-
-    /**
-     *
-     * @param joueur
-     * @param nbCarte
-     * @return
-     */
-    private StringBuilder afficherCarteJoué(Joueur joueur, Integer nbCarte)
+    private StringBuilder cartesJouéToString(Joueur joueur, Integer nbCarte)
     {
         StringBuilder s = new StringBuilder();
-        s.append(this.carteJoué.size()).append(" cartes posées, ");
+        s.append(this.carteJouées.size()).append(" cartes posées, ");
 
-        return s.append(joueur.nbDeCarteEnMain() - (nbCarte - this.carteJoué.size())).append(" cartes piochées");
+        return s.append(joueur.nbDeCarteEnMain() - (nbCarte - this.carteJouées.size())).append(" cartes piochées");
     }
 
     /**
@@ -427,7 +408,7 @@ public class Table {
     public boolean verifDefaiteJ2()
     {
         int cptPossible = 0;
-        Integer carteEnMain = 0;
+        Integer carteEnMain;
 
         for (int i = 0; i <= this.j2.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j2.getCarte(i);
@@ -486,20 +467,22 @@ public class Table {
     /**
      *
      */
-    public void afficherInfoj1()
+    public StringBuilder infoJ1ToString()
     {
-        System.out.println(this.j1.InfoJoueurToSring());
-        System.out.println(this.j2.InfoJoueurToSring());
-        System.out.println(this.j1.InfoMainJoueurToString());
+        StringBuilder s = new StringBuilder();
+        s.append(this.j1.InfoJoueurToSring()).append(System.lineSeparator());
+        s.append(this.j2.InfoJoueurToSring()).append(System.lineSeparator());
+        return s.append(this.j1.InfoMainJoueurToString());
     }
 
     /**
      *
      */
-    public void afficherInfoj2()
+    public StringBuilder infoJ2ToString()
     {
-        System.out.println(this.j1.InfoJoueurToSring());
-        System.out.println(this.j2.InfoJoueurToSring());
-        System.out.println(this.j2.InfoMainJoueurToString());
+        StringBuilder s = new StringBuilder();
+        s.append(this.j1.InfoJoueurToSring()).append(System.lineSeparator());
+        s.append(this.j2.InfoJoueurToSring()).append(System.lineSeparator());
+        return s.append(this.j2.InfoMainJoueurToString());
     }
 }

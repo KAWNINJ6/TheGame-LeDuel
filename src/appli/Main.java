@@ -15,9 +15,9 @@ public class Main {
      */
     public Main(Cartes c)
     {
-        for (;this.main.size() <= nbCarteMax-1;){
-                this.main.add(c.prendreCarte());
-            }
+        while (this.main.size() <= nbCarteMax-1) {
+            this.main.add(c.prendreCarte());
+        }
     }
 
     /**
