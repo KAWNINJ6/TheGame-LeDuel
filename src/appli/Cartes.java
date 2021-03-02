@@ -6,22 +6,23 @@ import java.util.Random;
 public class Cartes {
     /** paquet de cartes (Tableau) */
     private final ArrayList<Integer> cartes = new ArrayList<>();
-    /** nombre de carte maximum utilisable */
+    /** nombre de carte maximum utilisables */
     private final int nbCarteMax = 60;
 
     /**
-     *
+     * Constructeur d'un paquet de cartes.
      */
     public Cartes()
     {
-        for(int carte = 1; this.cartes.size() <= nbCarteMax-1; ++carte) {
+        for(int carte = 1; this.cartes.size() <= nbCarteMax-1; ++carte) { // toutes les cartes de 1 à 60
             this.cartes.add(carte);
         }
     }
 
     /**
+     * Pioche une carte aléatoirement dans le paquet.
      *
-     * @return
+     * @return          la carte piochée
      */
     public Integer prendreCarte()
     {
@@ -35,8 +36,9 @@ public class Cartes {
     }
 
     /**
+     * Pioche la première carte du paquet.
      *
-     * @return
+     * @return          la carte piochée
      */
     public Integer prendrePremCarte()
     {
@@ -47,8 +49,9 @@ public class Cartes {
     }
 
     /**
+     * Pioche la carte carte du paquet.
      *
-     * @return
+     * @return          la carte piochée
      */
     public Integer prendreDernCarte()
     {
@@ -59,8 +62,9 @@ public class Cartes {
     }
 
     /**
+     * Supprime la carte du paquet à un indice donné.
      *
-     * @param idx
+     * @param idx           l'indice de la carte
      */
     private void supCarte(int idx)
     {
@@ -68,8 +72,9 @@ public class Cartes {
     }
 
     /**
+     * Donne le nombre de cartes dans le paquet de cartes.
      *
-     * @return
+     * @return          le nombre de carte dans le paquet
      */
     public int getNbCarte()
     {
