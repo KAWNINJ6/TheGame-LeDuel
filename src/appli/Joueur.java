@@ -18,7 +18,7 @@ public class Joueur {
     /** main du joueur */
     private final Main main = new Main(this.pioche);
     /** nom du joueur */
-    private NomJoueur nom;
+    private final NomJoueur nom;
     /** nombre de joueurs instanciés */
     private static int nbJoueurs = 0;
 
@@ -231,7 +231,7 @@ public class Joueur {
     public void remplirMainComplet()
     {
         if (this.pioche.getNbCarte() > 0) {
-            while (this.main.getNbCarte() <= this.pioche.getNbCarte()-1) {
+            while (this.main.getNbCarte() < 6) {
                 this.main.setCarte(this.pioche.prendreCarte());
             }
         }
