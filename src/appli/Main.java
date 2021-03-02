@@ -3,6 +3,10 @@ package appli;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 
+/**
+ * La classe main represente la main du joueur
+ * il peut poser et piocher des cartes dans sa main
+ * */
 public class Main {
     /** set de cartes */
     private final ArrayList<Integer> main = new ArrayList<>();

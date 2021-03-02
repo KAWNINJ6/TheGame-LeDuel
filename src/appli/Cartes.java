@@ -3,6 +3,10 @@ package appli;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Représente le paquet de carte dont dispose un joueur
+ * un paquet est compossé des cartes allant de 1 à 60
+ * */
 public class Cartes {
     /** paquet de cartes (Tableau) */
     private final ArrayList<Integer> cartes = new ArrayList<>();

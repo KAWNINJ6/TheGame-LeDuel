@@ -7,7 +7,12 @@ enum NomJoueur
 {
     NORD, SUD
 }
-
+/**
+ * La classe joueur répresente un joueur du jeu qui peut jouer des coups
+ * Il possède un nom : NORD ou SUD
+ * Un paquet de cartes
+ * Une pile ascendante et une descendante
+ * */
 public class Joueur {
     /**
      * cartes du joueur qui compose sa pioche

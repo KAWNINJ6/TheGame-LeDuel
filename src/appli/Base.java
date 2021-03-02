@@ -2,6 +2,11 @@ package appli;
 
 import java.util.LinkedList;
 
+/**
+ * La classe Base represente les 2 bases qu'un joueur à besoin
+ * une ascendante(^) et l'autre descendante (v)
+ * qui constituent le plan du jeu
+ * */
 public class Base {
     /** pile ascendante de cartes (liste chainée) */
     public final LinkedList<Integer> pileAsc = new LinkedList<>();
