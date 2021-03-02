@@ -9,18 +9,20 @@ public class Base {
     public final LinkedList<Integer> pileDesc = new LinkedList<>();
 
     /**
+     * Constructeur des bases d'un joueur.
      *
-     * @param c
+     * @param c         le paquet de cartes du joueur
      */
     public Base(Cartes c)
     {
-        this.pileAsc.push(c.prendrePremCarte());
-        this.pileDesc.push(c.prendreDernCarte());
+        this.pileAsc.push(c.prendrePremCarte()); //insère la carte 1 dans la pile asc
+        this.pileDesc.push(c.prendreDernCarte()); //insère la carte 60 dans la pile des
     }
 
     /**
+     * Retourne la valeur de la base ascendante
      *
-     * @return
+     * @return          la valeur de la base
      */
     public Integer getCartePileAsc()
     {
@@ -28,8 +30,9 @@ public class Base {
     }
 
     /**
+     * Retourne la valeur de la base descendante
      *
-     * @return
+     * @return          la valeur de la base
      */
     public Integer getCartePileDesc()
     {
@@ -37,8 +40,9 @@ public class Base {
     }
 
     /**
+     * Ajoute une nouvelle carte dans la pile ascendante
      *
-     * @param carte
+     * @param carte         la carte à ajouter
      */
     public void setCartePileAsc(Integer carte)
     {
@@ -47,8 +51,9 @@ public class Base {
     }
 
     /**
+     * Ajoute une nouvelle carte dans la pile descendante
      *
-     * @param carte
+     * @param carte         la carte à ajouter
      */
     public void setCartePileDesc(Integer carte)
     {
@@ -57,8 +62,9 @@ public class Base {
     }
 
     /**
+     * Crée une chaine de caractères contenant la valeur de la base ascendante
      *
-     * @return
+     * @return          la chaine de caractères
      */
     public StringBuilder pileAscToString()
     {
@@ -69,8 +75,9 @@ public class Base {
     }
 
     /**
+     * Crée une chaine de caractères contenant la valeur de la base descendante
      *
-     * @return
+     * @return          la chaine de caractères
      */
     public StringBuilder pileDescToString()
     {
