@@ -25,15 +25,15 @@ public class Table {
         System.out.print("> ");
         supEntrées();
         s = sc.nextLine();
-        décompose(s, j1, j2);
-        if (!verifSyntaxique(j1, nbCarte, j2)){
+        décompose(s, j1);
+        if (!verifSyntaxique(j1, j2)){
             supEntrées();
-            while (!verifSyntaxique(j1, nbCarte, j2)) {
+            while (!verifSyntaxique(j1, j2)) {
                 supEntrées();
-                if (!verifSyntaxique(j1, nbCarte, j2)) {
+                if (!verifSyntaxique(j1, j2)) {
                     System.out.print("#> ");
                     s = sc.nextLine();
-                    décompose(s, this.j1, this.j2);
+                    décompose(s, this.j1);
                 }
             }
         }
@@ -52,15 +52,15 @@ public class Table {
         System.out.print("> ");
         supEntrées();
         s = sc.nextLine();
-        décompose(s, j2, j1);
-        if (!verifSyntaxique(j2, nbCarte, j1)){
+        décompose(s, j2);
+        if (!verifSyntaxique(j2, j1)){
             supEntrées();
-            while (!verifSyntaxique(j2, nbCarte, j1)) {
+            while (!verifSyntaxique(j2, j1)) {
                 supEntrées();
-                if (!verifSyntaxique(j2, nbCarte, j1)) {
+                if (!verifSyntaxique(j2, j1)) {
                     System.out.print("#> ");
                     s = sc.nextLine();
-                    décompose(s, this.j2, this.j1);
+                    décompose(s, j2);
                 }
             }
         }
@@ -80,9 +80,8 @@ public class Table {
      *
      * @param s
      * @param joueur
-     * @param joueurAdv
      */
-    private void décompose(String s, Joueur joueur, Joueur joueurAdv)
+    private void décompose(String s, Joueur joueur)
     {
         Scanner scs = new Scanner(s);
 
@@ -131,17 +130,16 @@ public class Table {
     /**
      *
      * @param joueur
-     * @param nbCarte
      * @param joueurAdv
      * @return
      */
-    private boolean verifSyntaxique(Joueur joueur, int nbCarte, Joueur joueurAdv)
+    private boolean verifSyntaxique(Joueur joueur, Joueur joueurAdv)
     {
         if (this.coutJouées.size() < 2){
             return false;
         }
         else if (verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)){
-            verifSemantique(joueur,nbCarte, joueurAdv);
+            verifSemantique(joueur, joueurAdv);
             return true;
         }
         return false;
@@ -177,10 +175,8 @@ public class Table {
     {
         for (int i = 0; i <= this.coutJouées.size() - 1; ++i) {
             String cout = this.coutJouées.get(i);
-            Integer carte = this.carteJouées.get(i);
 
             if (cout.contains("^") && !cout.contains("'")) {
-                String coutAsc = this.coutJouées.get(i);
                 Integer carteAsc = this.carteJouées.get(i);
 
                 if (!joueur.verifPoseCartePileAsc(carteAsc)) {
@@ -191,7 +187,7 @@ public class Table {
                         String coutAscSuiv = this.coutJouées.get(j);
                         Integer carteAscSuiv = this.carteJouées.get(j);
 
-                        if (cout.contains("^") && !cout.contains("'")) {
+                        if (coutAscSuiv.contains("^") && !coutAscSuiv.contains("'")) {
                             if (verifCoutSpec('^', newCarteAsc, joueur) > verifCoutSpec('^', carteAscSuiv, joueur)) {
                                 if (!verifCoutSpec2('^', newCarteAsc, carteAscSuiv, joueur)) {
                                     return false;
@@ -215,10 +211,8 @@ public class Table {
     {
         for (int i = 0; i <= this.coutJouées.size() - 1; ++i) {
             String cout = this.coutJouées.get(i);
-            Integer carte = this.carteJouées.get(i);
 
             if (cout.contains("v") && !cout.contains("'")) {
-                String coutDesc = this.coutJouées.get(i);
                 Integer carteDesc = this.carteJouées.get(i);
 
                 if (!joueur.verifPoseCartePileAsc(carteDesc)) {
@@ -318,11 +312,9 @@ public class Table {
     /**
      *
      * @param joueur
-     * @param nbCarte
      * @param joueurAdv
-     * @return
      */
-    private void verifSemantique(Joueur joueur, int nbCarte, Joueur joueurAdv)
+    private void verifSemantique(Joueur joueur, Joueur joueurAdv)
     {
         boolean poserAdv = false;
 
@@ -364,17 +356,6 @@ public class Table {
         } else {
             joueur.remplirMain();
         }
-    }
-
-    /**
-     *
-     * @param joueur
-     * @param nbCarte
-     * @return
-     */
-    private boolean verifCartePosées(Joueur joueur, Integer nbCarte)
-    {
-        return joueur.nbDeCarteEnMain() <= nbCarte - 2 || joueur.nbDeCarteEnMain() == 0;
     }
 
     /**
@@ -427,7 +408,7 @@ public class Table {
     public boolean verifDefaiteJ2()
     {
         int cptPossible = 0;
-        Integer carteEnMain = 0;
+        Integer carteEnMain;
 
         for (int i = 0; i <= this.j2.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j2.getCarte(i);
