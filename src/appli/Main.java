@@ -6,24 +6,26 @@ import static java.util.Collections.sort;
 public class Main {
     /** set de cartes */
     private final ArrayList<Integer> main = new ArrayList<>();
-    /** nombre de cartes maximum utilisable */
+    /** nombre de cartes maximum utilisables */
     private final int nbCarteMax = 6;
 
     /**
+     * constructeur de la main d'un joueur
      *
-     * @param c
+     * @param c le paquet de carte du joueur
      */
     public Main(Cartes c)
     {
-        while (this.main.size() <= nbCarteMax-1) {
+        while (this.main.size() <= nbCarteMax-1) { // rempli la main
             this.main.add(c.prendreCarte());
         }
     }
 
     /**
+     * Prend une carte dans la main.
      *
-     * @param idx
-     * @return
+     * @param idx           l'indice de la carte
+     * @return              la carte
      */
     public Integer prendreCarte(int idx)
     {
@@ -33,9 +35,10 @@ public class Main {
     }
 
     /**
+     * Getter d'une carte de la main.
      *
-     * @param idx
-     * @return
+     * @param idx           l'indice de la carte
+     * @return              la carte
      */
     public Integer getCarte(int idx)
     {
@@ -43,8 +46,9 @@ public class Main {
     }
 
     /**
+     * Ajoute une carte dans la main.
      *
-     * @param carte
+     * @param carte         la carte a ajouter
      */
     public void setCarte(Integer carte)
     {
@@ -54,9 +58,10 @@ public class Main {
     }
 
     /**
+     * Recherche dans la main l'indice d'une carte.
      *
-     * @param carte
-     * @return
+     * @param carte         la carte voulue
+     * @return              l'indice de la carte dans la main
      */
     public int trvIdxCarte(Integer carte)
     {
@@ -64,9 +69,10 @@ public class Main {
     }
 
     /**
+     * Regarde si une carte est dans la main ou non.
      *
-     * @param carte
-     * @return
+     * @param carte         la carte voulue
+     * @return              si la carte est dans la main ou non
      */
     public boolean carteExiste(Integer carte)
     {
@@ -78,8 +84,9 @@ public class Main {
     }
 
     /**
+     * Retourne le nombre de cartes dans la main
      *
-     * @return
+     * @return          le nombre de cartes
      */
     public int getNbCarte()
     {
@@ -87,8 +94,9 @@ public class Main {
     }
 
     /**
+     * Crée une chaine de caractères contenant les cartes de la main
      *
-     * @return
+     * @return          la chaine de caractères
      */
     public StringBuilder mainToString()
     {
@@ -108,7 +116,7 @@ public class Main {
     }
 
     /**
-     *
+     * Trie les cartes de la main dans l'ordre croissant
      */
     private void trierMain()
     {
