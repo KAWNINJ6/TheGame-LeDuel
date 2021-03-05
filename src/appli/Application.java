@@ -5,7 +5,7 @@ public class Application {
 
         Table jeux = new Table();
 
-        while (jeux.verifDefaiteJ1() || jeux.verifVictoireJ1()) {
+        while (true) {
 
             System.out.println(jeux.infoJ1ToString());
             jeux.lectureEntrerJ1();

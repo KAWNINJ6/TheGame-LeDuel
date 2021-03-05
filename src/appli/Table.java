@@ -86,40 +86,33 @@ public class Table {
         Scanner scs = new Scanner(s);
 
         while (scs.hasNext()) {
-
             String coup = scs.next();
             try {
 
                 if (joueur.aCetteCarteEnMain(Integer.parseInt(coup.substring(0, 2), 10))) {
-
                     if (coup.charAt(2) == 'v') {
-
-                        if (coup.length() > 3 && coup.charAt(3) == '\'') {
+                        if (coup.length()==4 && coup.charAt(3) == '\'') {
                             coutJouées.add(coup.substring(0, 4));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
-                        else {
+                        else if (coup.length()==3) {
                             coutJouées.add(coup.substring(0, 3));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
 
                     } else if (coup.charAt(2) == '^') {
-
-                        if (coup.length() > 3 && coup.charAt(3) == '\'') {
+                        if (coup.length()==4 && coup.charAt(3) == '\'') {
                             coutJouées.add(coup.substring(0, 4));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
-                        else {
+                        else if (coup.length()==3) {
                             coutJouées.add(coup.substring(0, 3));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
-
-                    }
-                    else {
+                    } else {
                         supEntrées();
                     }
-                }
-                else {
+                } else {
                     supEntrées();
                 }
 
@@ -381,14 +374,14 @@ public class Table {
         int cptPossible = 0;
         Integer carteEnMain;
 
-        for (int i = 0; i <= this.j1.nbDeCarteEnMain()-1; ++i) {
+        for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j1.getCarte(i);
 
             if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
-                ++cptPossible;
+                cptPossible+=verifDefaiteSpec(j1, i, '^');
             }
             else if (this.j1.verifPoseCartePileDesc(carteEnMain)) {
-                ++cptPossible;
+                cptPossible+=verifDefaiteSpec(j1, i, 'v');
             }
             else if (this.j1.verifPoseCartePileAscAdv(this.j2, carteEnMain)) {
                 ++cptPossible;
@@ -410,14 +403,14 @@ public class Table {
         int cptPossible = 0;
         Integer carteEnMain;
 
-        for (int i = 0; i <= this.j2.nbDeCarteEnMain()-1; ++i) {
+        for (int i = 0; i < this.j2.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j2.getCarte(i);
 
             if (this.j2.verifPoseCartePileAsc(carteEnMain)) {
-                ++cptPossible;
+                cptPossible+=verifDefaiteSpec(j2, i, '^');
             }
             else if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
-                ++cptPossible;
+                cptPossible+=verifDefaiteSpec(j2, i, 'v');
             }
             else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain)) {
                 ++cptPossible;
@@ -428,6 +421,37 @@ public class Table {
         }
 
         return cptPossible >= 2;
+    }
+
+    /**
+     *
+     * @param joueur
+     * @param idx
+     * @param base
+     * @return
+     */
+    private int verifDefaiteSpec(Joueur joueur, int idx, char base)
+    {
+        Integer carteEnMain = joueur.getCarte(idx);
+        int cptPossible = 1;
+
+        Integer carteEnMainSuiv = joueur.getCarte(idx+1);
+
+        if (base == 'v') {
+            carteEnMain+=10;
+
+            if (carteEnMain.equals(carteEnMainSuiv)) {
+                return cptPossible+=1;
+            }
+        }
+        else if (base == '^') {
+            carteEnMainSuiv-=10;
+
+            if (carteEnMain.equals(carteEnMainSuiv)) {
+                return cptPossible+=1;
+            }
+        }
+        return cptPossible;
     }
 
     /**
