@@ -67,11 +67,7 @@ public class Joueur {
         if (carte > this.base.getCartePileAsc()) {
             return true;
         }
-        else if (carte-10 == this.base.getCartePileAsc()) {
-            return true;
-        }else {
-            return false;
-        }
+        else return carte - 10 == this.base.getCartePileAsc();
     }
 
     /**
@@ -96,11 +92,7 @@ public class Joueur {
         if (carte < this.base.getCartePileDesc()) {
             return true;
         }
-        else if (carte+10 == this.base.getCartePileDesc()) {
-            return true;
-        }else {
-            return false;
-        }
+        else return carte + 10 == this.base.getCartePileDesc();
     }
 
     /**
@@ -248,11 +240,12 @@ public class Joueur {
 
     /**
      * getter de la carte dans la main du joueur.
+     * (sans supprimer la carte de la main)
      *
      * @param idx          l'indice de la carte voulue
      * @return             la carte
      * */
-    public Integer getCarte(int idx)
+    public Integer getCarteDansMain(int idx)
     {
         return this.main.getCarte(idx);
     }

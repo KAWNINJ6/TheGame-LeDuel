@@ -1,5 +1,12 @@
 package appli;
 
+/**
+ *
+ *
+ * @author Sellam Zakaria
+ * @author
+ * @version
+ * */
 public class Application {
     public static void main(String[] args) {
 
@@ -9,7 +16,7 @@ public class Application {
 
             System.out.println(jeux.infoJ1ToString());
             jeux.lectureEntrerJ1();
-            if(!jeux.verifDefaiteJ1() || jeux.verifVictoireJ1()) {
+            if(!jeux.verifDefaiteJ1() || jeux.verifVictoireJ2()) {
                 System.out.println(jeux.infoJ2ToString());
                 jeux.afficherVictoireJ2();
                 break;
@@ -17,7 +24,7 @@ public class Application {
 
             System.out.println(jeux.infoJ2ToString());
             jeux.lectureEntrerJ2();
-            if(!jeux.verifDefaiteJ2() || jeux.verifVictoireJ2()) {
+            if(!jeux.verifDefaiteJ2() || jeux.verifVictoireJ1()) {
                 System.out.println(jeux.infoJ1ToString());
                 jeux.afficherVictoireJ1();
                 break;

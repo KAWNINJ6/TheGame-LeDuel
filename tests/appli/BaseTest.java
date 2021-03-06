@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseTest {
 
     /**
-     * Test qui permet de placer les premieres cartes dans ces respectifs bases (asc et des)
+     * Test qui permet de verifié si les premieres cartes sont posé leurs bases respectifs (asc et des)
      */
     @Test
     public void getPileAscEtDesc() {
@@ -19,7 +19,7 @@ class BaseTest {
     }
 
     /**
-     * Test qui permet de placer des cartes dans ces respectifs bases (asc et des)
+     * Test qui verifie des cartes sont placer dans leurs bases respectifs (asc et des)
      */
     @Test
     public void setPileAscEtDesc() {

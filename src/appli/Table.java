@@ -3,6 +3,13 @@ package appli;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ *
+ * @author Sellam Zakaria
+ * @author
+ * @version
+ * */
 public class Table {
     /** premier joueur */
     private final Joueur j1 = new Joueur();
@@ -26,7 +33,7 @@ public class Table {
         supEntrées();
         s = sc.nextLine();
         décompose(s, j1);
-        if (!verifSyntaxique(j1, j2)){
+        if (!verifSyntaxique(j1, j2)) {
             supEntrées();
             while (!verifSyntaxique(j1, j2)) {
                 supEntrées();
@@ -95,7 +102,7 @@ public class Table {
                             coutJouées.add(coup.substring(0, 4));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
-                        else if (coup.length()==3) {
+                        else if (coup.length() == 3) {
                             coutJouées.add(coup.substring(0, 3));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
@@ -105,7 +112,7 @@ public class Table {
                             coutJouées.add(coup.substring(0, 4));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
-                        else if (coup.length()==3) {
+                        else if (coup.length() == 3) {
                             coutJouées.add(coup.substring(0, 3));
                             carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
@@ -132,7 +139,7 @@ public class Table {
             return false;
         }
         else if (verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)){
-            verifSemantique(joueur, joueurAdv);
+            poserCartes(joueur, joueurAdv);
             return true;
         }
         return false;
@@ -289,7 +296,7 @@ public class Table {
      */
     private boolean verifCoutSpec2(char base, Integer carte,Integer carteSuiv, Joueur joueur)
     {
-        Integer newCarte = carte;
+        Integer newCarte;
 
         if (base == 'v' && joueur.getPile('v') == 60) {
             newCarte = carte+10;
@@ -307,7 +314,7 @@ public class Table {
      * @param joueur
      * @param joueurAdv
      */
-    private void verifSemantique(Joueur joueur, Joueur joueurAdv)
+    private void poserCartes(Joueur joueur, Joueur joueurAdv)
     {
         boolean poserAdv = false;
 
@@ -375,7 +382,7 @@ public class Table {
         Integer carteEnMain;
 
         for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; ++i) {
-            carteEnMain = this.j1.getCarte(i);
+            carteEnMain = this.j1.getCarteDansMain(i);
 
             if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
                 cptPossible+=verifDefaiteSpec(j1, i, '^');
@@ -390,7 +397,6 @@ public class Table {
                 ++cptPossible;
             }
         }
-
         return cptPossible >= 2;
     }
 
@@ -404,18 +410,23 @@ public class Table {
         Integer carteEnMain;
 
         for (int i = 0; i < this.j2.nbDeCarteEnMain()-1; ++i) {
-            carteEnMain = this.j2.getCarte(i);
+            carteEnMain = this.j2.getCarteDansMain(i);
+
+            if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
+                cptPossible+=verifDefaiteSpec(j2, i, 'v');
+            }
+            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain)) {
+                ++cptPossible;
+            }
+        }
+
+        for (int i = this.j2.nbDeCarteEnMain()-1; i >= 0; --i) {
+            carteEnMain = this.j2.getCarteDansMain(i);
 
             if (this.j2.verifPoseCartePileAsc(carteEnMain)) {
                 cptPossible+=verifDefaiteSpec(j2, i, '^');
             }
-            else if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(j2, i, 'v');
-            }
             else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain)) {
-                ++cptPossible;
-            }
-            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain)) {
                 ++cptPossible;
             }
         }
@@ -432,10 +443,9 @@ public class Table {
      */
     private int verifDefaiteSpec(Joueur joueur, int idx, char base)
     {
-        Integer carteEnMain = joueur.getCarte(idx);
+        Integer carteEnMain = joueur.getCarteDansMain(idx);
+        Integer carteEnMainSuiv = joueur.getCarteDansMain(idx+1);
         int cptPossible = 1;
-
-        Integer carteEnMainSuiv = joueur.getCarte(idx+1);
 
         if (base == 'v') {
             carteEnMain+=10;
