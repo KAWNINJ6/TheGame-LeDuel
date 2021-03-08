@@ -21,7 +21,8 @@ public class Table {
     private final ArrayList<Integer> carteJouées = new ArrayList<>();
 
     /**
-     *
+     * Lis les entrées du joueur NORD et applique différente vérification
+     * et affiche les cartes jouées et cartes piochées.
      */
     public void lectureEntrerJ1()
     {
@@ -48,7 +49,8 @@ public class Table {
     }
 
     /**
-     *
+     * Lis les entrées du joueur SUD et applique différente vérification
+     * et affiche les cartes jouées et cartes piochées.
      */
     public void lectureEntrerJ2()
     {
@@ -75,7 +77,7 @@ public class Table {
     }
 
     /**
-     *
+     *  Supprime les coutJouées et carteJouées sur la table.
      */
     private void supEntrées()
     {
@@ -362,7 +364,7 @@ public class Table {
      *
      * @param joueur
      * @param nbCarte
-     * @return
+     * @return          la chaine de caractères
      */
     private StringBuilder cartesJouéToString(Joueur joueur, Integer nbCarte)
     {
@@ -374,27 +376,35 @@ public class Table {
 
     /**
      *
-     * @return
+     * @return          si le joueur NORD peut jouer 2 cartes
      */
     public boolean verifDefaiteJ1()
     {
         int cptPossible = 0;
         Integer carteEnMain;
+        boolean coutAdv = false;
 
         for (int i = 0; i < this.j1.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j1.getCarteDansMain(i);
 
+            if (this.j1.verifPoseCartePileDesc(carteEnMain)) {
+                cptPossible+=verifDefaiteSpec(this.j1, i, 'v');
+            }
+            else if (this.j1.verifPoseCartePileDescAdv(this.j1, carteEnMain) && !coutAdv) {
+                ++cptPossible;
+                coutAdv = true;
+            }
+        }
+
+        for (int i = this.j1.nbDeCarteEnMain()-1; i > 0; --i) {
+            carteEnMain = this.j1.getCarteDansMain(i);
+
             if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(j1, i, '^');
+                cptPossible+=verifDefaiteSpec(this.j1, i, '^');
             }
-            else if (this.j1.verifPoseCartePileDesc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(j1, i, 'v');
-            }
-            else if (this.j1.verifPoseCartePileAscAdv(this.j2, carteEnMain)) {
+            else if (this.j1.verifPoseCartePileAscAdv(this.j1, carteEnMain) && !coutAdv) {
                 ++cptPossible;
-            }
-            else if (this.j1.verifPoseCartePileDescAdv(this.j2, carteEnMain)) {
-                ++cptPossible;
+                coutAdv = true;
             }
         }
         return cptPossible >= 2;
@@ -402,35 +412,37 @@ public class Table {
 
     /**
      *
-     * @return
+     * @return          si le joueur SUD peut jouer 2 cartes
      */
     public boolean verifDefaiteJ2()
     {
         int cptPossible = 0;
         Integer carteEnMain;
+        boolean coutAdv = false;
 
         for (int i = 0; i < this.j2.nbDeCarteEnMain()-1; ++i) {
             carteEnMain = this.j2.getCarteDansMain(i);
 
             if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(j2, i, 'v');
+                cptPossible+=verifDefaiteSpec(this.j2, i, 'v');
             }
-            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain)) {
+            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain) && !coutAdv) {
                 ++cptPossible;
+                coutAdv = true;
             }
         }
 
-        for (int i = this.j2.nbDeCarteEnMain()-1; i >= 0; --i) {
+        for (int i = this.j2.nbDeCarteEnMain()-1; i > 0; --i) {
             carteEnMain = this.j2.getCarteDansMain(i);
 
             if (this.j2.verifPoseCartePileAsc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(j2, i, '^');
+                cptPossible+=verifDefaiteSpec(this.j2, i, '^');
             }
-            else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain)) {
+            else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain) && !coutAdv)  {
                 ++cptPossible;
+                coutAdv = true;
             }
         }
-
         return cptPossible >= 2;
     }
 
@@ -444,10 +456,11 @@ public class Table {
     private int verifDefaiteSpec(Joueur joueur, int idx, char base)
     {
         Integer carteEnMain = joueur.getCarteDansMain(idx);
-        Integer carteEnMainSuiv = joueur.getCarteDansMain(idx+1);
+        Integer carteEnMainSuiv;
         int cptPossible = 1;
 
         if (base == 'v') {
+            carteEnMainSuiv = joueur.getCarteDansMain(idx+1);
             carteEnMain+=10;
 
             if (carteEnMain.equals(carteEnMainSuiv)) {
@@ -455,6 +468,7 @@ public class Table {
             }
         }
         else if (base == '^') {
+            carteEnMainSuiv = joueur.getCarteDansMain(idx-1);
             carteEnMainSuiv-=10;
 
             if (carteEnMain.equals(carteEnMainSuiv)) {
@@ -466,7 +480,7 @@ public class Table {
 
     /**
      *
-     * @return
+     * @return          si le joueur NORD n'a plus de cartes
      */
     public boolean verifVictoireJ1()
     {
@@ -475,7 +489,7 @@ public class Table {
 
     /**
      *
-     * @return
+     * @return          si le joueur SUD n'a plus de cartes
      */
     public boolean verifVictoireJ2()
     {
@@ -484,22 +498,27 @@ public class Table {
 
     /**
      *
+     * @return          la chaine de caractères
      */
-    public void afficherVictoireJ1()
+    public StringBuilder afficherVictoireJ1()
     {
-        System.out.println("partie finie, " + this.j1.getNom() + " a gagné");
+        StringBuilder s = new StringBuilder("partie finie, ");
+        return s.append(this.j1.getNom()).append(" a gagné");
     }
 
     /**
      *
+     * @return          la chaine de caractères
      */
-    public void afficherVictoireJ2()
+    public StringBuilder afficherVictoireJ2()
     {
-        System.out.println("partie finie, " + this.j2.getNom() + " a gagné");
+        StringBuilder s = new StringBuilder("partie finie, ");
+        return s.append(this.j2.getNom()).append(" a gagné");
     }
 
     /**
      *
+     * @return          la chaine de caractères
      */
     public StringBuilder infoJ1ToString()
     {
@@ -511,6 +530,7 @@ public class Table {
 
     /**
      *
+     * @return          la chaine de caractères
      */
     public StringBuilder infoJ2ToString()
     {

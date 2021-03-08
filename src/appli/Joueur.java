@@ -14,9 +14,7 @@ enum NomJoueur
  * Une pile ascendante et une descendante
  * */
 public class Joueur {
-    /**
-     * cartes du joueur qui compose sa pioche
-     */
+    /** cartes du joueur qui compose sa pioche */
     private final Cartes pioche = new Cartes();
     /** base du joueur */
     private final Base base = new Base(this.pioche);
@@ -28,7 +26,8 @@ public class Joueur {
     private static int nbJoueurs = 0;
 
     /**
-     * constructeur du joueur
+     * constructeur du joueur, applique le nom du joueur
+     * (applique NORD au premier, SUD au deuxième)
      */
     public Joueur()
     {

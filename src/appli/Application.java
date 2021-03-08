@@ -9,29 +9,40 @@ package appli;
  * */
 public class Application {
     public static void main(String[] args) {
-
         Table jeux = new Table();
 
         while (true) {
+            System.out.println(jeux.infoJ1ToString());
+            jeux.lectureEntrerJ1();
+
+            if (!jeux.verifDefaiteJ1() && jeux.verifDefaiteJ2()) {
+                System.out.println(jeux.infoJ2ToString());
+                jeux.lectureEntrerJ2();
+
+                if(!jeux.verifDefaiteJ2()) {
+                    System.out.println(jeux.afficherVictoireJ1());
+                }
+                else {
+                    System.out.println(jeux.afficherVictoireJ2());
+                }
+                break;
+            }
 
             System.out.println(jeux.infoJ1ToString());
             jeux.lectureEntrerJ1();
-            if(!jeux.verifDefaiteJ1() || jeux.verifVictoireJ2()) {
-                System.out.println(jeux.infoJ2ToString());
-                jeux.afficherVictoireJ2();
-                break;
-            }
 
-            System.out.println(jeux.infoJ2ToString());
-            jeux.lectureEntrerJ2();
-            if(!jeux.verifDefaiteJ2() || jeux.verifVictoireJ1()) {
+            if (!jeux.verifDefaiteJ2() && jeux.verifDefaiteJ1()) {
                 System.out.println(jeux.infoJ1ToString());
-                jeux.afficherVictoireJ1();
+                jeux.lectureEntrerJ1();
+
+                if(!jeux.verifDefaiteJ1()) {
+                    System.out.println(jeux.afficherVictoireJ2());
+                }
+                else {
+                    System.out.println(jeux.afficherVictoireJ1());
+                }
                 break;
             }
-
         }
-
     }
-
 }

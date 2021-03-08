@@ -31,7 +31,7 @@ public class Cartes {
     public Integer prendreCarte()
     {
         Random rd = new Random();
-        Integer idx = rd.nextInt(this.cartes.size());
+        int idx = rd.nextInt(this.cartes.size());
         Integer pch = this.cartes.get(idx);
 
         supCarte(idx);
@@ -53,7 +53,7 @@ public class Cartes {
     }
 
     /**
-     * Pioche la carte carte du paquet.
+     * Pioche la dernière carte du paquet.
      *
      * @return          la carte piochée
      */
