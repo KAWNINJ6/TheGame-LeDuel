@@ -9,7 +9,7 @@ import static java.util.Collections.sort;
  * */
 public class Main {
     /** set de cartes */
-    private final ArrayList<Integer> main = new ArrayList<>();
+    private ArrayList<Integer> main = new ArrayList<>();
     /** nombre de cartes maximum utilisables */
     private final int nbCarteMax = 6;
 

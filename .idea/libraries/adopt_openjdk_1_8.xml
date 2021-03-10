@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="adopt-openjdk-1.8">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/annotations/DependencyChecker/PluginChecker/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/annotations/DependencyChecker/Plugins/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/annotations/Validator/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/forkjoin/mergesort" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/jmx/jmx-scandir/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/jmx/jmx-scandir/test" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/lambda/BulkDataOperations/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/lambda/DefaultMethods" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/nio/chatserver" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/nio/file" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/nio/multicast" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/nio/server" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/scripting/scriptpad/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282/sample/try-with-resources/src" />
+      <root url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_282" recursive="false" type="SOURCES" />
+  </library>
+</component>

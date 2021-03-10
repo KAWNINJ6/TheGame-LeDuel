@@ -14,12 +14,15 @@ enum NomJoueur
  * Une pile ascendante et une descendante
  * */
 public class Joueur {
+    /** nombre de joueurs instanciés */
+    private static int nbJoueurs = 0;
+
     /** cartes du joueur qui compose sa pioche */
-    private final Cartes pioche = new Cartes();
+    private Cartes pioche;
     /** base du joueur */
-    private final Base base = new Base(this.pioche);
+    private Base base;
     /** main du joueur */
-    private final Main main = new Main(this.pioche);
+    private Main main;
     /** nom du joueur */
     private final NomJoueur nom;
     /** nombre de joueurs instanciés */
@@ -31,16 +34,14 @@ public class Joueur {
      */
     public Joueur()
     {
+        ++nbJoueurs;
+
         switch (nbJoueurs) {
-            case 0 -> {
-                this.nom = NomJoueur.NORD;
-                ++nbJoueurs;
-            }
-            case 1 -> {
-                this.nom = NomJoueur.SUD;
-                ++nbJoueurs;
-            }
-            default -> throw new IllegalStateException("Beaucoup trop de joueur, il en existe deja " + nbJoueurs);
+            case 1: this.nom = NomJoueur.NORD;
+                    break;
+            case 2: this.nom = NomJoueur.SUD;
+                    break;
+            default: throw new IllegalStateException("Beaucoup trop de joueur, il en existe deja " + nbJoueurs);
         }
     }
 
@@ -212,26 +213,32 @@ public class Joueur {
     /**
      * Renvoie le nom du joueur
      *
-     * @return          nom du joueur
+     * @return          la chaine de caractères
      */
-    public NomJoueur getNom()
+    public String getNom()
     {
-        return this.nom;
+        if (this.nom == NomJoueur.NORD) {
+            return "NORD";
+        }
+        if (this.nom == NomJoueur.SUD) {
+            return "SUD";
+        }
+        return "Nom pas défini";
     }
 
     /**
-     * getter de la valeur d'une base du joueur.
+     * getter de la valeur d'une pile dans la base du joueur.
      *
-     * @param Base          la base voulue ^(ascendante) ou v(descendante)
+     * @param pile          la pile voulue ^(ascendante) ou v(descendante)
      * @return              la valeur de la base
      * */
-    public Integer getPile(char Base)
+    public Integer getPileDansBase(char pile)
     {
-        assert (Base == 'v' || Base == '^');
+        assert (pile == 'v' || pile == '^');
 
-        if (Base == 'v')
+        if (pile == 'v')
             return this.base.getCartePileDesc();
-        else if (Base == '^')
+        else if (pile == '^')
             return this.base.getCartePileAsc();
 
         return 0;

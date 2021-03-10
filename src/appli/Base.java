@@ -9,9 +9,9 @@ import java.util.LinkedList;
  * */
 public class Base {
     /** pile ascendante de cartes (liste chainée) */
-    public final LinkedList<Integer> pileAsc = new LinkedList<>();
+    public LinkedList<Integer> pileAsc = new LinkedList<>();
     /** pile descendante de cartes (liste chainée) */
-    public final LinkedList<Integer> pileDesc = new LinkedList<>();
+    public LinkedList<Integer> pileDesc = new LinkedList<>();
 
     /**
      * Constructeur des bases d'un joueur.
@@ -21,7 +21,7 @@ public class Base {
     public Base(Cartes c)
     {
         this.pileAsc.push(c.prendrePremCarte()); //insère la carte 1 dans la pile asc
-        this.pileDesc.push(c.prendreDernCarte()); //insère la carte 60 dans la pile des
+        this.pileDesc.push(c.prendreDernCarte()); //insère la carte 60 dans la pile desc
     }
 
     /**

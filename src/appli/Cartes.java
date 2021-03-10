@@ -9,7 +9,7 @@ import java.util.Random;
  * */
 public class Cartes {
     /** paquet de cartes (Tableau) */
-    private final ArrayList<Integer> cartes = new ArrayList<>();
+    private ArrayList<Integer> cartes = new ArrayList<>();
     /** nombre de carte maximum utilisables */
     private final int nbCarteMax = 60;
 

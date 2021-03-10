@@ -53,8 +53,8 @@ class JoueurTest {
         joueur.poseCartePileAsc(i1);
         joueur.poseCartePileDesc(i2);
 
-        assertEquals(i1, joueur.getPile('^'));
-        assertEquals(i2, joueur.getPile('v'));
+        assertEquals(i1, joueur.getPileDansBase('^'));
+        assertEquals(i2, joueur.getPileDansBase('v'));
 
         return joueur;
     }
