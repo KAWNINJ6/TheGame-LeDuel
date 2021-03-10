@@ -25,14 +25,12 @@ public class Joueur {
     private Main main;
     /** nom du joueur */
     private final NomJoueur nom;
-    /** nombre de joueurs instanciés */
-    private static int nbJoueurs = 0;
 
     /**
      * constructeur du joueur, applique le nom du joueur
      * (applique NORD au premier, SUD au deuxième)
      */
-    public Joueur()
+    public Joueur() throws IllegalStateException
     {
         ++nbJoueurs;
 
@@ -43,6 +41,10 @@ public class Joueur {
                     break;
             default: throw new IllegalStateException("Beaucoup trop de joueur, il en existe deja " + nbJoueurs);
         }
+
+        pioche = new Cartes();
+        base = new Base(pioche);
+        main = new Main(pioche);
     }
 
     /**

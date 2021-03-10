@@ -1,7 +1,9 @@
 package appli;
 
 /**
- *
+ * L'application regroupe toutes les classes ainsi que les objets pour rendre possible
+ * l'utilisation du programme.
+ * on peut donc jouer au jeu THE GAME - Le duel.
  *
  * @author Sellam Zakaria
  * @author
