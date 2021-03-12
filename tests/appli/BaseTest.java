@@ -1,5 +1,7 @@
 package appli;
 
+import appli.Composants.Base;
+import appli.Composants.Cartes;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseTest {
 
     /**
-     * Test qui permet de verifié si les premieres cartes sont posé leurs bases respectifs (asc et des)
+     * Test qui permet de verifié si les premieres (au top) cartes sont bien
+     * recupéré dans leurs piles respectifs (asc et desc)
      */
     @Test
     public void getPileAscEtDesc() {
@@ -19,7 +22,8 @@ class BaseTest {
     }
 
     /**
-     * Test qui verifie des cartes sont placer dans leurs bases respectifs (asc et des)
+     * Test qui verifie si les cartes sont bien posé (au top)
+     * dans leurs piles respectifs
      */
     @Test
     public void setPileAscEtDesc() {

@@ -1,5 +1,6 @@
 package appli;
 
+import appli.Composants.Cartes;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CartesTest {
 
     /**
-     * Test que permet de creer un packet des cartes et regardes combient de cartes sont dans le packet
+     * Test qui permet de creer un paquet de carte et vérifie
+     * qu'ils existent bien 60 cartes
      */
     @Test
     public void testCreationCartes(){
@@ -17,7 +19,7 @@ class CartesTest {
     }
 
     /**
-     * Test que permet de retirer une carte de le packet et de la metre dans la main et regardes combient de cartes sont dans le packet
+     * Test qui verifie si une carte est bien recupéré lorsqu'on pioche
      */
     @Test
     public void testPiocher(){
@@ -29,7 +31,7 @@ class CartesTest {
     }
 
     /**
-     * Test que permet la premier carte de le packet (1)
+     * Test qui verifie si la premiére carte est bien recupéré
      */
     @Test
     public void testPiocherPrem(){
@@ -39,7 +41,7 @@ class CartesTest {
     }
 
     /**
-     * Test que permet la dernier carte de le packet (60)
+     * Test qui verifie si la dernière carte est bien recupéré
      */
     @Test
     public void testPiocherDern(){
@@ -49,7 +51,8 @@ class CartesTest {
     }
 
     /**
-     * Test que permet de savoir combien de carte sont dans le packets en retirent quelques unes
+     * Test qui verifie que le nombre de cartes dans un paquet de cartes
+     * est cohérent
      */
     @Test
     public void testNbCarte(){

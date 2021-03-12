@@ -1,4 +1,4 @@
-package appli;
+package appli.Composants;
 
 import java.util.ArrayList;
 import static java.util.Collections.sort;
@@ -94,25 +94,27 @@ public class Main {
     }
 
     /**
-     * Crée une chaine de caractères contenant les cartes de la main
+     * Crée une chaine de caractères contenant les cartes de la main triée
      *
      * @return          la chaine de caractères
      */
-    public StringBuilder mainToString()
+    public String mainToString()
     {
         trierMain();
-        StringBuilder s = new StringBuilder("{ ");
+        StringBuilder sb = new StringBuilder("{ ");
 
         for(int i = 0; i < main.size(); ++i) {
 
             if (i == 0){
-                s.append(String.format("%02d", this.main.get(i)));
+                sb.append(String.format("%02d", this.main.get(i)));
             }
             else {
-                s.append(" ").append(String.format("%02d", this.main.get(i)));
+                sb.append(" ").append(String.format("%02d", this.main.get(i)));
             }
         }
-        return s.append(" }");
+        sb.append(" }");
+
+        return sb.toString();
     }
 
     /**

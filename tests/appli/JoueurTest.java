@@ -9,20 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class JoueurTest {
 
     /**
-     * Verifie le bon fonctionnement du nommage des joueurs
-     * + la méthode getNom();
-     */
-    @Test
-    public void testMethodJoueur()
-    {
-        Joueur j1 = new Joueur();
-        Joueur j2 = new Joueur();
-
-        assertEquals(NORD, j1.getNom());
-        assertEquals(SUD, j2.getNom());
-    }
-
-    /**
      * Verifie si les methodes de pose de carte fonctionnent
      * + la méthode aCetteCarteEnMain();
      * + la méthode getPile();

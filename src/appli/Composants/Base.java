@@ -1,4 +1,4 @@
-package appli;
+package appli.Composants;
 
 import java.util.LinkedList;
 
@@ -71,12 +71,9 @@ public class Base {
      *
      * @return          la chaine de caractères
      */
-    public StringBuilder pileAscToString()
+    public String pileAscToString()
     {
-        StringBuilder s = new StringBuilder("^[");
-        s.append(String.format("%02d", this.pileAsc.peek()));
-
-        return s.append("]");
+        return "^[" + String.format("%02d", this.pileAsc.peek()) + "]";
     }
 
     /**
@@ -84,11 +81,8 @@ public class Base {
      *
      * @return          la chaine de caractères
      */
-    public StringBuilder pileDescToString()
+    public String pileDescToString()
     {
-        StringBuilder s = new StringBuilder("v[");
-        s.append(String.format("%02d", this.pileDesc.peek()));
-
-        return s.append("]");
+        return "v[" + String.format("%02d", this.pileDesc.peek()) + "]";
     }
 }

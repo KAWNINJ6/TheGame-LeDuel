@@ -1,4 +1,4 @@
-package appli;
+package appli.Composants;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,15 +1,17 @@
 package appli;
 
+import appli.Composants.Cartes;
+import appli.Composants.Main;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
     /**
-     * Test que permet de voir combien de cartes sont dans la main.
+     * Test qui verifie que le bon nombre de cartes est donné dans la main
      */
     @Test
-    public void testGetNbCartesdansMain()
+    public void testMain()
     {
         Cartes c1 = new Cartes();
         Main m1 = new Main(c1);
@@ -18,7 +20,7 @@ class MainTest {
     }
 
     /**
-     * Test que permet de trouver une carte dans la main
+     * Test qui permet de savoir si on trouve bien la carte voulu, à l'indice demandé
      */
     @Test
     public void testTrvCarte()
@@ -33,7 +35,7 @@ class MainTest {
     }
 
     /**
-     * Test que permet de voir si une carte existe dans la main
+     * Test qui verifie si une carte existe dans la main
      */
     @Test
     public void testCarteExiste()
@@ -48,8 +50,9 @@ class MainTest {
     }
 
     /**
-     * Test que permet de voir placer er de retirer des cartes de la main et de voir
-     * combien de cartes sont dans la main
+     * Test qui vérifie si des cartes dans une main sont bien récupéré
+     * grace au getter et que le setter foctionne bien
+     *
      */
     @Test
     public void testGetAndSetMain()

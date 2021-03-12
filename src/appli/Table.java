@@ -7,90 +7,29 @@ import java.util.Scanner;
  * La classe table est la piece maitresse du programme, c'est elle qui agence la semantique du jeu.
  * Sur cette table on instancie les joueurs et on lit les coups joués par l'utilisateur.
  * Ces coups sont soumis a une verification strict en raccord avec les regles du jeu.
- *
- * @author Sellam Zakaria
- * @author
- * @version
  * */
 public class Table {
-    /** premier joueur (NORD) */
-    private Joueur j1 = new Joueur();
-    /** deuxieme joueur (SUD) */
-    private Joueur j2 = new Joueur();
     /** coup joué par les joueurs */
-    private ArrayList<String> coupJouées = new ArrayList<>();
+    private ArrayList<String> coupJouees = new ArrayList<>();
     /** carte joué par les joueurs */
-    private ArrayList<Integer> carteJouées = new ArrayList<>();
+    private ArrayList<Integer> carteJouees = new ArrayList<>();
 
     /**
-     * Lis les entrées du premier joueur (NORD) et applique différente vérification
-     * Récupère le nombres de cartes du joueur dans sa main avant de jouer
-     * Affiche les cartes jouées et cartes piochées
-     * Si la verification ne passe pas, la table est nettoyé
-     * et la saisie est relancé avec "#>".
+     * Getter de l'attribut coupJouees
+     *
+     * @return      renvoie la ArrayList des coupJouees
      */
-    public void lectureEntrerJ1()
-    {
-        Scanner sc = new Scanner(System.in);
-        String entréesJ1;
-        int nbCarte = this.j1.nbDeCarteEnMain();
-
-        System.out.print("> ");
-        supEntrées();
-        entréesJ1 = sc.nextLine();
-        décompose(entréesJ1, this.j1);
-        if (!verifSyntaxique(this.j1, this.j2)) {
-            supEntrées();
-            while (!verifSyntaxique(this.j1, this.j2)) {
-                supEntrées();
-                if (!verifSyntaxique(this.j1, this.j2)) {
-                    System.out.print("#> ");
-                    entréesJ1 = sc.nextLine();
-                    décompose(entréesJ1, this.j1);
-                }
-            }
-        }
-        System.out.println(cartesJouéToString(this.j1, nbCarte));
-    }
-
-    /**
-     * Lis les entrées du deuxième joueur (SUD) et applique différente vérification
-     * Récupère le nombres de cartes du joueur dans sa main avant de jouer
-     * Affiche les cartes jouées et cartes piochées.
-     * Si la verification ne passe pas, la table est nettoyé
-     * et la saisie est relancé avec "#>".
-     */
-    public void lectureEntrerJ2()
-    {
-        Scanner sc = new Scanner(System.in);
-        String entréesJ2;
-        int nbCarte = this.j2.nbDeCarteEnMain();
-
-        System.out.print("> ");
-        supEntrées();
-        entréesJ2 = sc.nextLine();
-        décompose(entréesJ2, this.j2);
-        if (!verifSyntaxique(this.j2, this.j1)){
-            supEntrées();
-            while (!verifSyntaxique(this.j2, this.j1)) {
-                supEntrées();
-                if (!verifSyntaxique(this.j2, this.j1)) {
-                    System.out.print("#> ");
-                    entréesJ2 = sc.nextLine();
-                    décompose(entréesJ2, this.j2);
-                }
-            }
-        }
-        System.out.println(cartesJouéToString(this.j2, nbCarte));
+    public ArrayList<String> getCoupJouees() {
+        return coupJouees;
     }
 
     /**
      * Supprime les coupJouées et carteJouées sur la table.
      */
-    private void supEntrées()
+    public void supEntrees()
     {
-        this.carteJouées.clear();
-        this.coupJouées.clear();
+        this.carteJouees.clear();
+        this.coupJouees.clear();
     }
 
     /**
@@ -103,12 +42,12 @@ public class Table {
      *
      * Sinon appelle la methode supEntrées().
      *
-     * @param entréesJoueur         la chaine de caractéres des entrées Joueur
+     * @param entreesJoueur         la chaine de caractéres des entrées Joueur
      * @param joueur                le joueur en question
      */
-    private void décompose(String entréesJoueur, Joueur joueur)
+    public void decompose(String entreesJoueur, Joueur joueur)
     {
-        Scanner scs = new Scanner(entréesJoueur);
+        Scanner scs = new Scanner(entreesJoueur);
 
         while (scs.hasNext()) {
             String coup = scs.next();
@@ -117,30 +56,32 @@ public class Table {
                 if (joueur.aCetteCarteEnMain(Integer.parseInt(coup.substring(0, 2), 10))) {
                     if (coup.charAt(2) == 'v') {
                         if (coup.length()==4 && coup.charAt(3) == '\'') {
-                            coupJouées.add(coup.substring(0, 4));
-                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coupJouees.add(coup.substring(0, 4));
+                            carteJouees.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
                         else if (coup.length() == 3) {
-                            coupJouées.add(coup.substring(0, 3));
-                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coupJouees.add(coup.substring(0, 3));
+                            carteJouees.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
 
                     } else if (coup.charAt(2) == '^') {
                         if (coup.length()==4 && coup.charAt(3) == '\'') {
-                            coupJouées.add(coup.substring(0, 4));
-                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coupJouees.add(coup.substring(0, 4));
+                            carteJouees.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
                         else if (coup.length() == 3) {
-                            coupJouées.add(coup.substring(0, 3));
-                            carteJouées.add(Integer.parseInt(coup.substring(0, 2), 10));
+                            coupJouees.add(coup.substring(0, 3));
+                            carteJouees.add(Integer.parseInt(coup.substring(0, 2), 10));
                         }
                     } else {
-                        supEntrées();
+                        supEntrees();
                     }
                 } else {
-                    supEntrées();
+                    supEntrees();
                 }
-            } catch (NumberFormatException | StringIndexOutOfBoundsException ignored) { }
+            } catch (NumberFormatException | StringIndexOutOfBoundsException ignored) {
+                supEntrees();
+            }
         }
         scs.close();
     }
@@ -158,9 +99,9 @@ public class Table {
      * @param joueurAdv     le joueur adverse (ne joue pas)
      * @return              si les coups/cartes jouées sont tous valident
      */
-    private boolean verifSyntaxique(Joueur joueur, Joueur joueurAdv)
+    public boolean verifSyntaxique(Joueur joueur, Joueur joueurAdv)
     {
-        if (this.coupJouées.size() < 2){
+        if (this.coupJouees.size() < 2){
             return false;
         }
         else if (!verifDoublon() && verifAsc(joueur) && verifDesc(joueur) && verifPoseAdv(joueur, joueurAdv)) {
@@ -178,12 +119,12 @@ public class Table {
      */
     private boolean verifDoublon()
     {
-        String coup = this.coupJouées.get(0);
-        Integer carte = this.carteJouées.get(0);
+        String coup = this.coupJouees.get(0);
+        Integer carte = this.carteJouees.get(0);
 
-        for (int i = 1; i <= coupJouées.size() - 1; ++i) {
-            String coupSuiv = this.coupJouées.get(i);
-            Integer carteSuiv = this.carteJouées.get(i);
+        for (int i = 1; i <= coupJouees.size() - 1; ++i) {
+            String coupSuiv = this.coupJouees.get(i);
+            Integer carteSuiv = this.carteJouees.get(i);
 
             if ((coup.contains("'") && coupSuiv.contains("'")) || carte.equals(carteSuiv)){
                 return true;
@@ -194,39 +135,27 @@ public class Table {
 
     /**
      * Verifie que tout les coups indiqués comme ascendant par le joueur sont croissant
-     * En cas de coups speciaux (voir méthodes), compare la copie de la carte avec les
-     * autres.
      *
-     * @param joueur
+     * @param joueur        le joueur
      * @return              les coups sont croissant ou non
-     * @see                 Table#verifCoupSpec(char, Integer, Joueur)
-     * @see                 Table#verifCoupSpec2(char, Integer, Integer, Joueur)
      */
-    private boolean verifAsc(Joueur joueur)
-    {
-        for (int i = 0; i <= this.coupJouées.size() - 1; ++i) {
-            String coup = this.coupJouées.get(i); // coup
+    private boolean verifAsc(Joueur joueur) {
+        ArrayList<Integer> cartesAsc = new ArrayList<>();
 
-            if (coup.contains("^") && !coup.contains("'")) { // verification que le coup est ascendant
-                Integer carteAsc = this.carteJouées.get(i); // premier carte ascendant
+        for (int i = 0; i <= this.coupJouees.size() - 1; ++i) {
+            if (this.coupJouees.get(i).contains("^") && !this.coupJouees.get(i).contains("'")) {
+                cartesAsc.add(this.carteJouees.get(i));
+            }
+        }
+        for (int i = 0; i < cartesAsc.size() - 1; ++i) {
 
-                if (!joueur.verifPoseCartePileAsc(carteAsc)) {  // regarde si la premiere carte asc est jouable
-                    return false;
+            if (i < 1 && !joueur.verifPoseCartePileAsc(cartesAsc.get(0))) {
+                return false;
+            }
+            else if (cartesAsc.size() >= 1) {
+                if (cartesAsc.get(i) < cartesAsc.get(i+1) || cartesAsc.get(i)-10 == cartesAsc.get(i+1)) {
                 } else {
-                    for (int j = i + 1; j <= this.coupJouées.size() - 1; ++j) { // regarde les autres coups
-                        Integer newCarteAsc = verifCoupSpec('^', carteAsc, joueur); // voir méthode verifCoupSpec
-                        String coupAscSuiv = this.coupJouées.get(j);
-                        Integer carteAscSuiv = this.carteJouées.get(j);
-
-                        if (coupAscSuiv.contains("^") && !coupAscSuiv.contains("'")) {
-                            if (verifCoupSpec('^',newCarteAsc, joueur) > verifCoupSpec('^', carteAscSuiv, joueur)) {
-                                if (!verifCoupSpec2('^', newCarteAsc, carteAscSuiv, joueur)) {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-                    break;
+                    return false;
                 }
             }
         }
@@ -235,92 +164,32 @@ public class Table {
 
     /**
      * Verifie que tout les coups indiqués comme descendant par le joueur sont decroissant
-     * En cas de coups speciaux (voir méthodes), compare la copie de la carte avec les
-     * autres.
      *
      * @param joueur        le joueur
      * @return              les coups sont decroissant ou non
-     * @see                 Table#verifCoupSpec(char, Integer, Joueur)
-     * @see                 Table#verifCoupSpec2(char, Integer, Integer, Joueur)
      */
     private boolean verifDesc(Joueur joueur)
     {
-        for (int i = 0; i <= this.coupJouées.size() - 1; ++i) {
-            String coup = this.coupJouées.get(i);
+        ArrayList<Integer> cartesDesc = new ArrayList<>();
 
-            if (coup.contains("v") && !coup.contains("'")) {
-                Integer carteDesc = this.carteJouées.get(i);
+        for (int i = 0; i <= this.coupJouees.size() - 1; ++i) {
+            if (this.coupJouees.get(i).contains("v") && !this.coupJouees.get(i).contains("'")) {
+                cartesDesc.add(this.carteJouees.get(i));
+            }
+        }
+        for (int i = 0; i < cartesDesc.size() - 1; ++i) {
 
-                if (!joueur.verifPoseCartePileAsc(carteDesc)) {
+            if (i < 1 && !joueur.verifPoseCartePileDesc(cartesDesc.get(0))) {
+                return false;
+            }
+            else if (cartesDesc.size() >= 1) {
+                if (cartesDesc.get(i) > cartesDesc.get(i+1) || cartesDesc.get(i)+10 == cartesDesc.get(i+1)) { }
+                else {
                     return false;
-                } else {
-                    for (int j = i + 1; j <= this.coupJouées.size() - 1; ++j) {
-                        Integer newCarteDesc = verifCoupSpec('v', carteDesc, joueur);
-                        String coupDescSuiv = this.coupJouées.get(j);
-                        Integer carteDescSuiv = this.carteJouées.get(j);
-
-                        if (coupDescSuiv.contains("v") && !coupDescSuiv.contains("'")) {
-                            if (verifCoupSpec('v', newCarteDesc, joueur) < verifCoupSpec('v', carteDescSuiv, joueur)) {
-                                if (!verifCoupSpec2('v', newCarteDesc, carteDescSuiv, joueur)) {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-                    break;
                 }
             }
         }
         return true;
-    }
-
-    /**
-     *
-     * @param base
-     * @param carte
-     * @param joueur
-     * @return
-     */
-    private Integer verifCoupSpec(char base, Integer carte, Joueur joueur)
-    {
-        Integer newCarte = carte;
-
-        if (base == 'v') {
-            newCarte = carte-10;
-            if (newCarte.equals(joueur.getPileDansBase('v'))){
-                return newCarte;
-            }
-        }
-        else if (base == '^') {
-            newCarte = carte+10;
-            if (newCarte.equals(joueur.getPileDansBase('^'))){
-                return newCarte;
-            }
-        }
-        return carte;
-    }
-
-    /**
-     *
-     * @param base
-     * @param carte
-     * @param carteSuiv
-     * @param joueur
-     * @return
-     */
-    private boolean verifCoupSpec2(char base, Integer carte, Integer carteSuiv, Joueur joueur)
-    {
-        Integer newCarte;
-
-        if (base == 'v' && joueur.getPileDansBase('v') == 60) {
-            newCarte = carte+10;
-            return newCarte.equals(carteSuiv);
-        }
-        else if (base == '^' && joueur.getPileDansBase('^') == 1) {
-            newCarte = carte-10;
-            return newCarte.equals(carteSuiv);
-        }
-        return false;
     }
 
     /**
@@ -332,9 +201,9 @@ public class Table {
      */
     private boolean verifPoseAdv(Joueur joueur, Joueur joueurAdv) {
 
-        for (int i = 0; i <= this.coupJouées.size() - 1 ; ++i) {
-            String coup = this.coupJouées.get(i);
-            Integer carte = this.carteJouées.get(i);
+        for (int i = 0; i <= this.coupJouees.size() - 1 ; ++i) {
+            String coup = this.coupJouees.get(i);
+            Integer carte = this.carteJouees.get(i);
 
             if (coup.contains("v'") && !joueur.verifPoseCartePileDescAdv(joueurAdv, carte)) {
                 return false;
@@ -358,9 +227,9 @@ public class Table {
     {
         boolean poserAdv = false;
 
-        for (int cpt = 0; cpt <= this.coupJouées.size() - 1; ++cpt) {
-            String str = this.coupJouées.get(cpt);
-            Integer coup = this.carteJouées.get(cpt);
+        for (int cpt = 0; cpt <= this.coupJouees.size() - 1; ++cpt) {
+            String str = this.coupJouees.get(cpt);
+            Integer coup = this.carteJouees.get(cpt);
 
             if (str.contains("v'"))
             {
@@ -409,47 +278,45 @@ public class Table {
      * @param nbCarte       le nombre de carte initiale du joueur
      * @return              la chaine de caractères
      */
-    private StringBuilder cartesJouéToString(Joueur joueur, Integer nbCarte)
+    public String cartesJoueToString(Joueur joueur, Integer nbCarte)
     {
-        StringBuilder s = new StringBuilder();
-        s.append(this.carteJouées.size()).append(" cartes posées, ");
-
-        return s.append(joueur.nbDeCarteEnMain() - (nbCarte - this.carteJouées.size())).append(" cartes piochées");
+        return this.carteJouees.size() + " cartes posées, "
+                + (joueur.nbDeCarteEnMain() - (nbCarte - this.carteJouees.size()))
+                + " cartes piochées";
     }
 
     /**
      * Cette methode verifie tous les coups possibles selon les cartes en main du joueur
      * les regles du jeu demande qu'il y ait au moins deux coups jouer pour un tour
      * donc si l'algo trouve deux coups alors la partie continue sinon elle se termine.
-     * (Pour le joueur NORD)
      *
-     * @return              si le joueur NORD peut jouer 2 cartes
+     * @return              si le joueur peut jouer 2 cartes
      */
-    public boolean verifDefaiteJ1()
+    public boolean verifDefaite(Joueur joueur, Joueur joueurAdv)
     {
         int cptPossible = 0;
         Integer carteEnMain;
         boolean coupAdv = false;
 
-        for (int i = 0; i <= this.j1.nbDeCarteEnMain()-1; ++i) {
-            carteEnMain = this.j1.getCarteDansMain(i);
+        for (int i = 0; i <= joueur.nbDeCarteEnMain()-1; ++i) {
+            carteEnMain = joueur.getCarteDansMain(i);
 
-            if (this.j1.verifPoseCartePileDesc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(this.j1, i, 'v');
+            if (joueur.verifPoseCartePileDesc(carteEnMain)) {
+                cptPossible+=verifDefaiteSpec(joueur, i, 'v');
             }
-            else if (this.j1.verifPoseCartePileDescAdv(this.j2, carteEnMain) && !coupAdv) {
+            else if (joueur.verifPoseCartePileDescAdv(joueurAdv, carteEnMain) && !coupAdv) {
                 ++cptPossible;
                 coupAdv = true;
             }
         }
 
-        for (int i = this.j1.nbDeCarteEnMain()-1; i >= 0; --i) {
-            carteEnMain = this.j1.getCarteDansMain(i);
+        for (int i = joueur.nbDeCarteEnMain()-1; i >= 0; --i) {
+            carteEnMain = joueur.getCarteDansMain(i);
 
-            if (this.j1.verifPoseCartePileAsc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(this.j1, i, '^');
+            if (joueur.verifPoseCartePileAsc(carteEnMain)) {
+                cptPossible+=verifDefaiteSpec(joueur, i, '^');
             }
-            else if (this.j1.verifPoseCartePileAscAdv(this.j2, carteEnMain) && !coupAdv) {
+            else if (joueur.verifPoseCartePileAscAdv(joueurAdv, carteEnMain) && !coupAdv) {
                 ++cptPossible;
                 coupAdv = true;
             }
@@ -458,52 +325,22 @@ public class Table {
     }
 
     /**
-     * Cette methode verifie tous les coups possibles selon les cartes en main du joueur
-     * les regles du jeu demande qu'il y ait au moins deux coups jouer pour un tour
-     * donc si l'algo trouve deux coups alors la partie continue sinon elle se termine.
-     * (Pour le joueur SUD)
+     * Incremente de 1 le nombre de coup possible
+     * Incremente à nouveau le compteur de coup possible si la carte suivante :
      *
-     * @return              si le joueur SUD peut jouer 2 cartes
-     */
-    public boolean verifDefaiteJ2()
-    {
-        int cptPossible = 0;
-        Integer carteEnMain;
-        boolean coupAdv = false;
-
-        for (int i = 0; i <= this.j2.nbDeCarteEnMain()-1; ++i) {
-            carteEnMain = this.j2.getCarteDansMain(i);
-
-            if (this.j2.verifPoseCartePileDesc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(this.j2, i, 'v');
-            }
-            else if (this.j2.verifPoseCartePileDescAdv(this.j1, carteEnMain) && !coupAdv) {
-                ++cptPossible;
-                coupAdv = true;
-            }
-        }
-
-        for (int i = this.j2.nbDeCarteEnMain()-1; i >= 0; --i) {
-            carteEnMain = this.j2.getCarteDansMain(i);
-
-            if (this.j2.verifPoseCartePileAsc(carteEnMain)) {
-                cptPossible+=verifDefaiteSpec(this.j2, i, '^');
-            }
-            else if (this.j2.verifPoseCartePileAscAdv(this.j1, carteEnMain) && !coupAdv)  {
-                ++cptPossible;
-                coupAdv = true;
-            }
-        }
-        return cptPossible >= 2;
-    }
-
-    /**
-     * Incremente le compteur de coup possible pour une carte donnée si la carte suivante est égale.
+     * Dans le cas la base est demandé est ASC, alors compare la carte à l'indice donné
+     * avec la carte precedente décrementé de 10 et verifie qu'ils sont égaux. (Donc posable)
+     *
+     * Dans le cas la base est demandé est DESC, alors compare la carte à l'indice donné
+     * avec la carte suivante incrémenté de 10 et verifie qu'ils sont égaux. (Donc posable)
+     *
+     * Par exemple : le joueur a {18, 28} est que sa base est composé de ^[58] v[08]
+     *               dans ce cas 18 et 28 sont posable.
      *
      * @param joueur            le joueur qui joue
      * @param idx               indice de la carte choisie
-     * @param base              la base choisie ("v" ou "^"
-     * @return                  le compteur incrementé ou non
+     * @param base              la base choisie ("v" ou "^")
+     * @return                  le compteur incrementé
      */
     private int verifDefaiteSpec(Joueur joueur, int idx, char base)
     {
@@ -533,49 +370,23 @@ public class Table {
     /**
      * Verifie les conditions de victoire, c'est a dire que le joueur
      * qui joue n'a plus de carte en main et dans sa pioche.
-     * (pour le joueur NORD)
      *
-     * @return              si le joueur NORD a gagné
+     * @return              si le joueur a gagné
      */
-    public boolean verifVictoireJ1()
+    public boolean verifVictoire(Joueur joueur)
     {
-        return (this.j1.nbDeCarteEnMain() == 0 && this.j1.nbDeCarteDansPioche() == 0);
-    }
-
-    /**
-     * Verifie les conditions de victoire, c'est a dire que le joueur
-     * qui joue n'a plus de carte en main et dans sa pioche.
-     * (pour le joueur SUD)
-     *
-     * @return              si le joueur SUD n'a plus de cartes
-     */
-    public boolean verifVictoireJ2()
-    {
-        return (this.j2.nbDeCarteEnMain() == 0 && this.j2.nbDeCarteDansPioche() == 0);
+        return (joueur.nbDeCarteEnMain() == 0 && joueur.nbDeCarteDansPioche() == 0);
     }
 
     /**
      * Renvoie la chaine de caractere contenant le message de fin
      * exemple : "partie finie, SUD a gagné"
-     * (pour NORD)
      *
      * @return          la chaine de caractères
      */
-    public String afficherVictoireJ1()
+    public String victoireToString(Joueur joueur)
     {
-        return "partie finie, " + this.j1.getNom() + " a gagné";
-    }
-
-    /**
-     * Renvoie la chaine de caractere contenant le message de fin
-     * exemple : "partie finie, SUD a gagné"
-     * (pour SUD)
-     *
-     * @return          la chaine de caractères
-     */
-    public String afficherVictoireJ2()
-    {
-        return "partie finie, " + this.j1.getNom() + " a gagné";
+        return "partie finie, " + joueur.getNom() + " a gagné";
     }
 
     /**
@@ -583,31 +394,21 @@ public class Table {
      * exemple "NORD ^[17] v[60] (m6p48)
      *          SUD ^[10] v[52] (m6p50)
      *          cartes SUD { 17 20 25 32 35 50 }"
-     * (Pour NORD)
      *
      * @return          la chaine de caractères
      */
-    public String infoJ1ToString()
+    public String infoJoueurToString(Joueur joueur, Joueur joueurAdv, char tours)
     {
-        return this.j1.InfoJoueurToSring() + System.lineSeparator()
-                + this.j2.InfoJoueurToSring() + System.lineSeparator()
-                + this.j1.InfoMainJoueurToString();
-    }
+        assert (tours == '1' || tours == '2');
 
-    /**
-     * regroupe et renvoie toutes les informations demandées lors du tour d'un joueur
-     * exemple "NORD ^[17] v[60] (m6p48)
-     *          SUD ^[10] v[52] (m6p50)
-     *          cartes SUD { 17 20 25 32 35 50 }"
-     * (Pour SUD)
-     *
-     * @return          la chaine de caractères
-     */
-    public String infoJ2ToString()
-    {
-        return this.j1.InfoJoueurToSring() + System.lineSeparator()
-                + this.j2.InfoJoueurToSring() + System.lineSeparator()
-                + this.j2.InfoMainJoueurToString();
+        if (tours == '1') {
+            return joueur.InfoJoueurToSring() + System.lineSeparator()
+                    + joueurAdv.InfoJoueurToSring() + System.lineSeparator()
+                    + joueur.InfoMainJoueurToString();
+        } else {
+            return joueurAdv.InfoJoueurToSring() + System.lineSeparator()
+                    + joueur.InfoJoueurToSring() + System.lineSeparator()
+                    + joueur.InfoMainJoueurToString();
+        }
     }
 }
-

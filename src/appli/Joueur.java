@@ -1,5 +1,9 @@
 package appli;
 
+import appli.Composants.Base;
+import appli.Composants.Cartes;
+import appli.Composants.Main;
+
 /**
  *  enumeration des noms possibles des joueurs
  */
@@ -32,12 +36,12 @@ public class Joueur {
      */
     public Joueur() throws IllegalStateException
     {
-        ++nbJoueurs;
-
         switch (nbJoueurs) {
-            case 1: this.nom = NomJoueur.NORD;
+            case 0: this.nom = NomJoueur.NORD;
+                    ++nbJoueurs;
                     break;
-            case 2: this.nom = NomJoueur.SUD;
+            case 1: this.nom = NomJoueur.SUD;
+                    ++nbJoueurs;
                     break;
             default: throw new IllegalStateException("Beaucoup trop de joueur, il en existe deja " + nbJoueurs);
         }
@@ -181,35 +185,32 @@ public class Joueur {
      *
      * @return          la chaine de caractères
      */
-    public StringBuilder InfoMainJoueurToString()
+    public String InfoMainJoueurToString()
     {
-        StringBuilder s = new StringBuilder("cartes ");
-        s.append(nom);
-        s.append(" ");
-
-        return s.append(main.mainToString());
+        return "cartes " + this.nom + " " + this.main.mainToString();
     }
 
     /**
      * Crée une chaine de caractères contenant le nom du joueur, les bases du joueur
      * ainsi que le nombre de cartes dans sa main et pioche.
+     * Prend en compte l'espace après SUD
      *
      * @return          la chaine de caractères
      */
-    public StringBuilder InfoJoueurToSring()
+    public String InfoJoueurToSring()
     {
-        StringBuilder s = new StringBuilder();
+        String s = "";
 
-        s.append(this.nom);
-        if (this.nom == NomJoueur.SUD)
-            s.append(" ");
-        s.append(" ").append(this.base.pileAscToString());
-        s.append(" ").append(this.base.pileDescToString());
-        s.append(" ");
-        s.append("(m").append(main.getNbCarte());
-        s.append("p").append(pioche.getNbCarte());
+        s += this.nom;
+        if (this.nom == NomJoueur.SUD) {
+            s += " ";
+        }
+        s += " " + this.base.pileAscToString();
+        s += " " + this.base.pileDescToString();
+        s += " " + "(m" + this.main.getNbCarte() + "p" + this.pioche.getNbCarte();
+        s += ")";
 
-        return s.append(")");
+        return s;
     }
 
     /**
@@ -217,15 +218,15 @@ public class Joueur {
      *
      * @return          la chaine de caractères
      */
-    public String getNom()
+    public String getNom() throws IllegalStateException
     {
         if (this.nom == NomJoueur.NORD) {
             return "NORD";
         }
-        if (this.nom == NomJoueur.SUD) {
+        else if (this.nom == NomJoueur.SUD) {
             return "SUD";
         }
-        return "Nom pas défini";
+        throw new IllegalStateException("Nom pas défini");
     }
 
     /**
@@ -240,10 +241,8 @@ public class Joueur {
 
         if (pile == 'v')
             return this.base.getCartePileDesc();
-        else if (pile == '^')
+        else
             return this.base.getCartePileAsc();
-
-        return 0;
     }
 
     /**
