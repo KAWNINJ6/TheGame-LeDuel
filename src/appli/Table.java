@@ -139,7 +139,8 @@ public class Table {
      * @param joueur        le joueur
      * @return              les coups sont croissant ou non
      */
-    private boolean verifAsc(Joueur joueur) {
+    private boolean verifAsc(Joueur joueur)
+    {
         ArrayList<Integer> cartesAsc = new ArrayList<>();
 
         for (int i = 0; i <= this.coupJouees.size() - 1; ++i) {
@@ -153,8 +154,8 @@ public class Table {
                 return false;
             }
             else if (cartesAsc.size() >= 1) {
-                if (cartesAsc.get(i) < cartesAsc.get(i+1) || cartesAsc.get(i)-10 == cartesAsc.get(i+1)) {
-                } else {
+                if (cartesAsc.get(i) < cartesAsc.get(i+1) || cartesAsc.get(i)-10 == cartesAsc.get(i+1)) { }
+                else {
                     return false;
                 }
             }
@@ -199,7 +200,8 @@ public class Table {
      * @param joueurAdv     le joueur adverse
      * @return              si le coup est jouable ou non
      */
-    private boolean verifPoseAdv(Joueur joueur, Joueur joueurAdv) {
+    private boolean verifPoseAdv(Joueur joueur, Joueur joueurAdv)
+    {
 
         for (int i = 0; i <= this.coupJouees.size() - 1 ; ++i) {
             String coup = this.coupJouees.get(i);

@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  * @author Sellam Zakaria
  * @author Magalhaes Fabio
- * @version 2.0 voir Github
+ * @version 2.1 voir Github
  * */
 public class Application {
     public static void main(String[] args) {
